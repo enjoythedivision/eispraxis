@@ -2,6 +2,17 @@
    DESIGN SYSTEM
    ========================= */
 
+@font-face {
+  font-family: "MyFont";
+  src: url("./assets/fonts/NAMU-Pro.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "MyFont", sans-serif;
+}
+
 /* Colors */
 :root {
   /* Brand */
