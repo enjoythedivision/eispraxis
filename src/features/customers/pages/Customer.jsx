@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import "./Customer.scss";
 import { customers } from "../../../data/customers";
+import PaymentGrid from "./PaymentGrid.jsx";
 
 export default function Customer() {
   const { id } = useParams();
@@ -26,6 +27,8 @@ export default function Customer() {
             <span><span className="na"></span> N/A</span>
           </span>
         </div>
+        <PaymentGrid/>
+
       </div>
     </div>
   );
