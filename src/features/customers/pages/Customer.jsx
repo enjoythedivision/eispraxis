@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Customer.scss";
 import { customers } from "../../../data/customers";
 
@@ -16,6 +16,7 @@ export default function Customer() {
   return (
     <div className="customer">
       <div className="customer__header">
+        <Link to="/">← Back to customer list</Link>
         <h1>{customer.name}</h1>
       </div>
 

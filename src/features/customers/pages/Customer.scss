@@ -1,3 +1,8 @@
 .customer {
     background-color: var(--bg);
 }
+
+.customer__header > a:first-child {
+    font-size: 13px;
+    color: var(--text-muted);
+}
