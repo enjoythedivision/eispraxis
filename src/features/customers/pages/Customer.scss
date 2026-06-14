@@ -1,13 +1,52 @@
 .customer {
-    background-color: var(--bg);
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .customer__header > a:first-child {
-    font-size: 13px;
-    color: var(--text-muted);
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
 .customer__header {
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1rem;
+}
+
+.status__badges {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 0.6rem;
+
+  .complete {
+    width: 10px;
+    height: 10px;
+    background: var(--evergreen);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .incomplete {
+    width: 10px;
+    height: 10px;
+    background: #884439;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .na {
+    width: 10px;
+    height: 10px;
+    background: grey;
+    border-radius: 50%;
+    display: inline-block;
+  }
+}
+
+.sheet__title {
+    display: flex;
+    justify-content: space-between;
 }
