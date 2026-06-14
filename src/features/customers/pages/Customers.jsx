@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { customers as initialCustomers } from "../../../data/customers";
 import "./Customers.scss";
+import { Link } from "react-router-dom"
 
 export default function Customers() {
   const [search, setSearch] = useState("");
 
   const filteredCustomers = initialCustomers.filter((c) =>
-    c.name.toLowerCase().includes(search.toLowerCase())
+    c.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -26,11 +27,11 @@ export default function Customers() {
       <div className="customers__list">
         {filteredCustomers.map((c) => (
           <div key={c.id} className="customer-card">
-            <div className="customer-card__name">{c.name}</div>
-
-            <div className="customer-card__meta">
-              €{c.monthlyFee} / month
-            </div>
+            <Link to={`/customer/${c.id}`}>
+              {" "}
+              <div className="customer-card__name">{c.name}</div>
+              <div className="customer-card__meta">€{c.monthlyFee} / month</div>
+            </Link>
           </div>
         ))}
       </div>

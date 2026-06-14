@@ -15,7 +15,8 @@ export default function App() {
       <Sidebar />
 
       <main className="main">
-        <Routes>
+        {/* Main page routing */}
+        <Routes> 
           <Route path="/" element={<Customers />} />
           <Route path="/customer/:id" element={<Customer />} />
           <Route path="/dashboard" element={<Dashboard />} />
