@@ -24,6 +24,17 @@
   gap: 12px;
 }
 
+.sidebar__nav :last-child {
+  background-color: var(--teal);
+  color: var(--surface);
+  font-weight: bold;
+}
+
+.sidebar__nav :last-child:hover {
+  background-color: var(--evergreen);
+  color: var(--surface);
+}
+
 .sidebar__link {
   text-decoration: none;
   color: #333;

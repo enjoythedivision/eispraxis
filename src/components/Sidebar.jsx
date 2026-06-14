@@ -9,6 +9,7 @@ export default function Sidebar() {
       <nav className="sidebar__nav">
         <Link to="/" className="sidebar__link">Customers</Link>
         <Link to="/dashboard" className="sidebar__link">Dashboard</Link>
+        <Link to="/" className="sidebar__link">+ Add new</Link>
       </nav>
     </aside>
   );
