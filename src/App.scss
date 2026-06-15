@@ -1,9 +1,10 @@
 .app {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .main {
   flex: 1;
+  margin-left: 240px;
   padding: 24px;
 }

@@ -19,15 +19,20 @@ export default function Customer() {
         <h1>{customer.name}</h1>
       </div>
       <div className="customer__sheet">
+        <div className="customer__notes">
+
+        </div>
         <div className="sheet__title">
-          <h2>Payment Details</h2>
+          <h2>Payment Tracker</h2>
           <span className="status__badges">
             <span><span className="complete"></span> Complete</span>
             <span><span className="incomplete"></span> Not Complete</span>
             <span><span className="na"></span> N/A</span>
           </span>
         </div>
-        <PaymentGrid/>
+        <div className="sheet__grid">
+          <PaymentGrid customer={customer}/>
+        </div>
 
       </div>
     </div>

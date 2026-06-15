@@ -1,14 +1,16 @@
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 240px;
   height: 100vh;
   background: var(--bg);
   border-right: 1px solid #eaeaea;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   padding: 20px;
+  z-index: 10;
 }
 
 .sidebar__logo {
