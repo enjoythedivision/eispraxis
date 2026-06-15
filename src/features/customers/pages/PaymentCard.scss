@@ -33,13 +33,23 @@
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
+
+    &--complete {
+      background: #e6fcf3;
+      color: #00715d;
+    }
+
+    &--pending {
+      background: #fce6e6;
+      color: #884439;
+    }
   }
 
   &__amount {
     margin: 20px 0 16px;
     color: #171d1f;
     font-size: 26px;
-    font-weight: 800;
+    font-weight: 600;
 
     span {
       font-size: 18px;
@@ -58,7 +68,7 @@
     margin: 0 0 10px;
     color: #3f4844;
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 700;
     text-transform: uppercase;
   }
 

@@ -1,15 +1,28 @@
 import "./PaymentCard.scss";
+import { useState } from "react";
 
-export default function PaymentCard({month, amount}) {
+export default function PaymentCard({ month, amount }) {
+  const [paid, setPaid] = useState(false);
+
   return (
     <div className="payment-card">
       <div className="payment-card__top">
         <p className="payment-card__month">{month}</p>
-        <button className="payment-card__status">✓</button>
+        <button
+          className={`payment-card__status ${
+            paid
+              ? "payment-card__status--complete"
+              : "payment-card__status--pending"
+          }`}
+          onClick={() => setPaid(!paid)}
+        >
+          {paid ? "✓" : "✕"}
+        </button>
       </div>
 
       <p className="payment-card__amount">
-        <span>$</span>{amount}
+        <span>€</span>
+        {amount}
       </p>
 
       <hr />

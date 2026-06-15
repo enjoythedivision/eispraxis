@@ -26,7 +26,7 @@ export default function Customer() {
           <h2>Payment Tracker</h2>
           <span className="status__badges">
             <span><span className="complete"></span> Complete</span>
-            <span><span className="incomplete"></span> Not Complete</span>
+            <span><span className="incomplete"></span> Pending</span>
             <span><span className="na"></span> N/A</span>
           </span>
         </div>
