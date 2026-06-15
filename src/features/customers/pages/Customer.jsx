@@ -2,11 +2,15 @@ import { Link, useParams } from "react-router-dom";
 import "./Customer.scss";
 import { customers } from "../../../data/customers";
 import PaymentGrid from "./PaymentGrid.jsx";
+import { useState } from "react";
 
 export default function Customer() {
   const { id } = useParams();
 
   const customer = customers.find((c) => c.id === Number(id));
+
+  const [paid, setPaid] = useState(false);
+
 
   if (!customer) {
     return <h1>Customer not found</h1>;

@@ -8,6 +8,8 @@ const months = [
   "October", "November", "December"
 ];
 
+
+
 export default function PaymentGrid({ customer }) {
   if (!customer) return null;
 
@@ -18,6 +20,7 @@ export default function PaymentGrid({ customer }) {
           key={month}
           month={month}
           amount={customer.monthlyFee}
+          paid={customer.payments[month]}
         />
       ))}
     </div>
