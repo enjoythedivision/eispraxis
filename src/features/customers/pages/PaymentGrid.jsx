@@ -8,9 +8,7 @@ const months = [
   "October", "November", "December"
 ];
 
-
-
-export default function PaymentGrid({ customer }) {
+export default function PaymentGrid({ customer, onToggle }) {
   if (!customer) return null;
 
   return (
@@ -20,7 +18,8 @@ export default function PaymentGrid({ customer }) {
           key={month}
           month={month}
           amount={customer.monthlyFee}
-          paid={customer.payments[month]}
+          paid={customer.payments?.[month]}
+          onToggle={() => onToggle(month)}
         />
       ))}
     </div>

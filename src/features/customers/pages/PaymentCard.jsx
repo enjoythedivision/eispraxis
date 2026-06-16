@@ -12,8 +12,7 @@ export default function PaymentCard({ month, amount, paid, onToggle }) {
               ? "payment-card__status--complete"
               : "payment-card__status--pending"
           }`}
-          onClick={onToggle}
-        >
+onClick={() => onToggle(month)}        >
           {paid ? "✓" : "✕"}
         </button>
       </div>
