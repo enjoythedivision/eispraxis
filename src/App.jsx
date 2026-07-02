@@ -1,24 +1,62 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import "./App.scss";
+
 import Dashboard from "./features/dashboard/pages/Dashboard";
 import Customers from "./features/customers/pages/Customers";
 import Customer from "./features/customers/pages/Customer";
 import AddNewCustomer from "./features/customers/pages/AddNewCustomer";
 
+import { customers as initialCustomers } from "./data/customers";
 
 export default function App() {
+  const [customers, setCustomers] = useState(initialCustomers);
+  const defaultPayments = {
+    January: true,
+    February: true,
+    March: true,
+    April: true,
+    May: true,
+    June: true,
+    July: true,
+    August: true,
+    September: true,
+    October: true,
+    November: true,
+    December: true,
+  };
+
+  function handleAddCustomer(name, fee) {
+    const newCustomer = {
+      id: Date.now(),
+      name: name,
+      monthlyFee: fee,
+      payments: { ...defaultPayments },
+    };
+
+    setCustomers((prev) => [...prev, newCustomer]);
+  }
+
   return (
     <div className="app">
       <Sidebar />
 
       <main className="main">
-        {/* Main page routing */}
-        <Routes> 
-          <Route path="/" element={<Customers />} />
-          <Route path="/customer/:id" element={<Customer />} />
+        <Routes>
+          <Route path="/" element={<Customers customers={customers} />} />
+
+          <Route
+            path="/customer/:id"
+            element={<Customer customers={customers} />}
+          />
+
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-new" element={<AddNewCustomer/>}></Route>
+
+          <Route
+            path="/add-new"
+            element={<AddNewCustomer onAddCustomer={handleAddCustomer} />}
+          />
         </Routes>
       </main>
     </div>

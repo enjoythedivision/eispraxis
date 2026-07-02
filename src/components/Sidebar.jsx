@@ -4,7 +4,7 @@ import "./Sidebar.scss";
 export default function Sidebar() {
   return (
     <aside className="sidebar">
-      <h2 className="sidebar__logo">Eispraxis</h2>
+      <h2 className="sidebar__logo">Tracking App</h2>
 
       <nav className="sidebar__nav">
         <Link to="/" className="sidebar__link">Customers</Link>

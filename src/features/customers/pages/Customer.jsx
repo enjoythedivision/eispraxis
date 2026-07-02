@@ -1,10 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import "./Customer.scss";
-import { customers } from "../../../data/customers";
 import PaymentGrid from "./PaymentGrid.jsx";
 
-export default function Customer() {
+export default function Customer({ customers }) {
   const { id } = useParams();
 
   const initialCustomer = customers.find(

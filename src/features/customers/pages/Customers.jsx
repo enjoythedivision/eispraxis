@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { customers as initialCustomers } from "../../../data/customers";
 import "./Customers.scss";
 import { Link } from "react-router-dom"
 
-export default function Customers() {
+export default function Customers({ customers }) {
   const [search, setSearch] = useState("");
 
-  const filteredCustomers = initialCustomers.filter((c) =>
+  const filteredCustomers = customers.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase()),
   );
 
