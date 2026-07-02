@@ -38,6 +38,14 @@ export default function App() {
     setCustomers((prev) => [...prev, newCustomer]);
   }
 
+  function handleDeleteCustomer() {
+
+  }
+
+  function handleEditCustomer() {
+    
+  }
+
   return (
     <div className="app">
       <Sidebar />
