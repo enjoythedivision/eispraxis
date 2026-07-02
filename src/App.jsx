@@ -69,7 +69,7 @@ export default function App() {
 
           <Route
             path="/add-new"
-            element={<AddNewCustomer onAddCustomer={handleAddCustomer} />}
+            element={<AddNewCustomer onAddCustomer={handleAddCustomer} onEditCustomer={handleEditCustomer} onDeleteCustomer={handleDeleteCustomer} />}
           />
         </Routes>
       </main>
