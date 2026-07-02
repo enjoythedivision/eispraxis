@@ -12,7 +12,7 @@ import { customers as initialCustomers } from "./data/customers";
 
 export default function App() {
   const [customers, setCustomers] = useState(initialCustomers);
-  
+
   const defaultPayments = {
     January: true,
     February: true,
@@ -83,7 +83,7 @@ export default function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
 
-          <Route path="/edit/customer/:id" element={<EditCustomer />} />
+          <Route path="/customer/:id/edit" element={<EditCustomer />} />
 
           <Route
             path="/add-new"
