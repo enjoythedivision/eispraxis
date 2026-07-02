@@ -62,14 +62,14 @@ export default function App() {
 
           <Route
             path="/customer/:id"
-            element={<Customer customers={customers} />}
+            element={<Customer customers={customers} onEditCustomer={handleEditCustomer} onDeleteCustomer={handleDeleteCustomer} />}
           />
 
           <Route path="/dashboard" element={<Dashboard />} />
 
           <Route
             path="/add-new"
-            element={<AddNewCustomer onAddCustomer={handleAddCustomer} onEditCustomer={handleEditCustomer} onDeleteCustomer={handleDeleteCustomer} />}
+            element={<AddNewCustomer onAddCustomer={handleAddCustomer}/>}
           />
         </Routes>
       </main>
