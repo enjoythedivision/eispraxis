@@ -25,24 +25,43 @@ export default function Customer({
       <div className="customer__header">
         <Link to="/">← Back to customer list</Link>
         <h1>{customer.name}</h1>
-        <Link to={`/customer/${customer.id}/edit`}>Edit</Link>
-        <button onClick={() => setShowDeleteModal(true)}>Delete</button>
+        <Link
+          className="btn btn-secondary"
+          to={`/customer/${customer.id}/edit`}
+        >
+          Edit
+        </Link>
+
+        <button
+          className="btn btn-danger"
+          onClick={() => setShowDeleteModal(true)}
+        >
+          Delete
+        </button>
         {showDeleteModal && (
           <div className="modal">
             <div className="modal__content">
               <h2>Delete customer?</h2>
               <p>Are you sure you want to delete {customer.name}?</p>
 
-              <button onClick={() => setShowDeleteModal(false)}>Cancel</button>
+              <div className="modal__actions">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowDeleteModal(false)}
+                >
+                  Cancel
+                </button>
 
-              <button
-                onClick={() => {
-                  onDeleteCustomer(customer.id);
-                  navigate("/");
-                }}
-              >
-                Yes, delete
-              </button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    onDeleteCustomer(customer.id);
+                    navigate("/");
+                  }}
+                >
+                  Yes, delete
+                </button>
+              </div>
             </div>
           </div>
         )}

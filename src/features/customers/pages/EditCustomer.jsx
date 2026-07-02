@@ -48,7 +48,9 @@ export default function EditCustomer({ customers, onEditCustomer }) {
           placeholder="Enter customer fee"
         />
 
-        <button type="submit">Edit Customer</button>
+        <button className="btn btn-primary" type="submit">
+          Save Changes
+        </button>
       </form>
     </>
   );

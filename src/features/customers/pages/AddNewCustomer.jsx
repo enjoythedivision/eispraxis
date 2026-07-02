@@ -42,7 +42,9 @@ export default function AddNewCustomer({ onAddCustomer }) {
           placeholder="Enter customer fee"
         />
 
-        <button type="submit">Add Customer</button>
+        <button className="btn btn-primary" type="submit">
+          Add Customer
+        </button>
       </form>
     </div>
   );

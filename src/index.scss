@@ -112,6 +112,15 @@ a {
   }
 }
 
+.btn-danger {
+  background: #c0392b;
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
 /* =========================
    BADGES (για months ✔ / ✖)
    ========================= */
@@ -148,4 +157,38 @@ input {
   &:focus {
     border-color: var(--teal);
   }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 28, 26, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.modal__content {
+  width: min(420px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(28, 28, 26, 0.18);
+
+  h2 {
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 }
