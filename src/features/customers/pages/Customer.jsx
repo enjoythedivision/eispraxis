@@ -1,4 +1,5 @@
-import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "./Customer.scss";
 import PaymentGrid from "./PaymentGrid.jsx";
 
@@ -9,6 +10,10 @@ export default function Customer({
   onTogglePayment,
 }) {
   const { id } = useParams();
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const navigate = useNavigate();
 
   const customer = customers.find((c) => c.id === Number(id));
 
@@ -22,7 +27,26 @@ export default function Customer({
         <Link to="/">← Back to customer list</Link>
         <h1>{customer.name}</h1>
         <Link to={`/customer/${customer.id}/edit`}>Edit</Link>
-        <Link to=""></Link>
+        <button onClick={() => setShowDeleteModal(true)}>Delete</button>
+        {showDeleteModal && (
+          <div className="modal">
+            <div className="modal__content">
+              <h2>Delete customer?</h2>
+              <p>Are you sure you want to delete {customer.name}?</p>
+
+              <button onClick={() => setShowDeleteModal(false)}>Cancel</button>
+
+              <button
+                onClick={() => {
+                  onDeleteCustomer(customer.id);
+                  navigate("/");
+                }}
+              >
+                Yes, delete
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="customer__sheet">
