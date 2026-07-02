@@ -38,12 +38,19 @@ export default function App() {
     setCustomers((prev) => [...prev, newCustomer]);
   }
 
-  function handleDeleteCustomer() {
-
+  function handleDeleteCustomer(id) {
+    setCustomers((prev) => {
+      return prev.filter((c) => c.id !== id);
+    })
   }
 
-  function handleEditCustomer() {
-    
+  function handleEditCustomer(id, newName, newFee) {
+   setCustomers((prev) => {
+     return prev.map((c) => {
+       c.id === id ? {...c, name: newName, monthlyFee: newFee,} : c;
+     })
+     
+   })
   }
 
   return (
