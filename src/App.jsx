@@ -12,6 +12,7 @@ import { customers as initialCustomers } from "./data/customers";
 
 export default function App() {
   const [customers, setCustomers] = useState(initialCustomers);
+  
   const defaultPayments = {
     January: true,
     February: true,
