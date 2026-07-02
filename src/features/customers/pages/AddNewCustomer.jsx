@@ -13,7 +13,6 @@ export default function AddNewCustomer({ onAddCustomer }) {
     if (!fee) return;
 
     onAddCustomer(name.trim(), Number(fee));
-
     setName("");
     setFee("");
 
