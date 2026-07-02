@@ -85,12 +85,16 @@ a {
    ========================= */
 
 .btn {
-  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 37px;
+  padding: 4px 12px;
   border-radius: 10px;
-  font-weight: 500;
   cursor: pointer;
   border: none;
   transition: 0.2s ease;
+  font: inherit;
 }
 
 .btn-primary {
@@ -113,7 +117,7 @@ a {
 }
 
 .btn-danger {
-  background: #c0392b;
+  background: #7a2e26;
   color: white;
 
   &:hover {

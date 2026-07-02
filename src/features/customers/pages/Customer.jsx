@@ -23,48 +23,27 @@ export default function Customer({
   return (
     <div className="customer">
       <div className="customer__header">
-        <Link to="/">← Back to customer list</Link>
-        <h1>{customer.name}</h1>
-        <Link
-          className="btn btn-secondary"
-          to={`/customer/${customer.id}/edit`}
-        >
-          Edit
+        <Link className="customer__back" to="/">
+          ← Back to customer list
         </Link>
 
-        <button
-          className="btn btn-danger"
-          onClick={() => setShowDeleteModal(true)}
-        >
-          Delete
-        </button>
-        {showDeleteModal && (
-          <div className="modal">
-            <div className="modal__content">
-              <h2>Delete customer?</h2>
-              <p>Are you sure you want to delete {customer.name}?</p>
+        <h1>{customer.name}</h1>
 
-              <div className="modal__actions">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setShowDeleteModal(false)}
-                >
-                  Cancel
-                </button>
+        <div className="customer__actions">
+          <Link
+            className="btn btn-secondary"
+            to={`/customer/${customer.id}/edit`}
+          >
+            Edit
+          </Link>
 
-                <button
-                  className="btn btn-danger"
-                  onClick={() => {
-                    onDeleteCustomer(customer.id);
-                    navigate("/");
-                  }}
-                >
-                  Yes, delete
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+          <button
+            className="btn btn-danger"
+            onClick={() => setShowDeleteModal(true)}
+          >
+            Delete
+          </button>
+        </div>
       </div>
 
       <div className="customer__sheet">
@@ -93,6 +72,34 @@ export default function Customer({
           />
         </div>
       </div>
+
+      {showDeleteModal && (
+        <div className="modal">
+          <div className="modal__content">
+            <h2>Delete customer?</h2>
+            <p>Are you sure you want to delete {customer.name}?</p>
+
+            <div className="modal__actions">
+              <button
+                className="btn btn-secondary"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="btn btn-danger"
+                onClick={() => {
+                  onDeleteCustomer(customer.id);
+                  navigate("/");
+                }}
+              >
+                Yes, delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -61,3 +61,29 @@
   background: #fff;
   margin-bottom: 1rem;
 }
+
+.customer__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+
+  h1 {
+    margin: 4px 0 0;
+  }
+}
+
+.customer__back {
+  color: var(--text-muted);
+  font-size: 14px;
+
+  &:hover {
+    color: var(--evergreen);
+  }
+}
+
+.customer__actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
