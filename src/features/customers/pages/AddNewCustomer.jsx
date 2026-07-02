@@ -1,16 +1,23 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AddNewCustomer({ onAddCustomer }) {
   const [name, setName] = useState("");
   const [fee, setFee] = useState("");
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onAddCustomer(name, fee);
+    if (!name.trim()) return;
+    if (!fee) return;
+
+    onAddCustomer(name.trim(), Number(fee));
 
     setName("");
     setFee("");
+
+    navigate("/");
   }
 
   return (
@@ -19,7 +26,6 @@ export default function AddNewCustomer({ onAddCustomer }) {
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Customer Name</label>
-
         <input
           id="name"
           type="text"
@@ -28,6 +34,7 @@ export default function AddNewCustomer({ onAddCustomer }) {
           placeholder="Enter customer name"
         />
 
+        <label htmlFor="fee">Monthly Fee</label>
         <input
           id="fee"
           type="number"
