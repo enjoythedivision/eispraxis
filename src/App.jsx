@@ -47,17 +47,17 @@ export default function App() {
 
   function handleEditCustomer(id, newName, newFee) {
     setCustomers((prev) => {
-      return prev.map((c) => {
-        c.id === id ? { ...c, name: newName, monthlyFee: newFee } : c;
-      });
+      return prev.map((c) => 
+        c.id === id ? { ...c, name: newName, monthlyFee: newFee } : c
+      );
     });
   }
 
   function handleTogglePayment(id, month) {
-    setCustomers((prev) =>
-      prev.map((c) =>
+    setCustomers((prev) => {
+      return prev.map((c) =>
         c.id === id ? {...c, payments: {...c.payments, [month]: !c.payments[month],},} : c,
-      ),
+      )},
     );
   }
 
@@ -83,7 +83,7 @@ export default function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
 
-          <Route path="/customer/:id/edit" element={<EditCustomer />} />
+          <Route path="/customer/:id/edit" element={<EditCustomer customers={customers} onEditCustomer={handleEditCustomer}/>} />
 
           <Route
             path="/add-new"
