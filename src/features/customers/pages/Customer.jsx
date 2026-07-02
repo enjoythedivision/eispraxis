@@ -5,7 +5,6 @@ import PaymentGrid from "./PaymentGrid.jsx";
 
 export default function Customer({
   customers,
-  onEditCustomer,
   onDeleteCustomer,
   onTogglePayment,
 }) {
@@ -72,7 +71,7 @@ export default function Customer({
           <PaymentGrid
             customer={customer}
             onToggle={(month) => onTogglePayment(customer.id, month)}
-          />{" "}
+          />
         </div>
       </div>
     </div>

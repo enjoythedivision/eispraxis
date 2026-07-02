@@ -74,7 +74,6 @@ export default function App() {
             element={
               <Customer
                 customers={customers}
-                onEditCustomer={handleEditCustomer}
                 onDeleteCustomer={handleDeleteCustomer}
                 onTogglePayment={handleTogglePayment}
               />
