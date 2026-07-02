@@ -6,6 +6,7 @@ import Dashboard from "./features/dashboard/pages/Dashboard";
 import Customers from "./features/customers/pages/Customers";
 import Customer from "./features/customers/pages/Customer";
 import AddNewCustomer from "./features/customers/pages/AddNewCustomer";
+import EditCustomer from "./features/customers/pages/EditCustomer";
 
 import { customers as initialCustomers } from "./data/customers";
 
@@ -40,16 +41,23 @@ export default function App() {
   function handleDeleteCustomer(id) {
     setCustomers((prev) => {
       return prev.filter((c) => c.id !== id);
-    })
+    });
   }
 
   function handleEditCustomer(id, newName, newFee) {
-   setCustomers((prev) => {
-     return prev.map((c) => {
-       c.id === id ? {...c, name: newName, monthlyFee: newFee,} : c;
-     })
-     
-   })
+    setCustomers((prev) => {
+      return prev.map((c) => {
+        c.id === id ? { ...c, name: newName, monthlyFee: newFee } : c;
+      });
+    });
+  }
+
+  function handleTogglePayment(id, month) {
+    setCustomers((prev) =>
+      prev.map((c) =>
+        c.id === id ? {...c, payments: {...c.payments, [month]: !c.payments[month],},} : c,
+      ),
+    );
   }
 
   return (
@@ -62,14 +70,23 @@ export default function App() {
 
           <Route
             path="/customer/:id"
-            element={<Customer customers={customers} onEditCustomer={handleEditCustomer} onDeleteCustomer={handleDeleteCustomer} />}
+            element={
+              <Customer
+                customers={customers}
+                onEditCustomer={handleEditCustomer}
+                onDeleteCustomer={handleDeleteCustomer}
+                onTogglePayment={handleTogglePayment}
+              />
+            }
           />
 
           <Route path="/dashboard" element={<Dashboard />} />
 
+          <Route path="/edit/customer/:id" element={<EditCustomer />} />
+
           <Route
             path="/add-new"
-            element={<AddNewCustomer onAddCustomer={handleAddCustomer}/>}
+            element={<AddNewCustomer onAddCustomer={handleAddCustomer} />}
           />
         </Routes>
       </main>

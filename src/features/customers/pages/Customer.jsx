@@ -1,29 +1,19 @@
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
 import "./Customer.scss";
 import PaymentGrid from "./PaymentGrid.jsx";
 
-export default function Customer({ customers }) {
+export default function Customer({
+  customers,
+  onEditCustomer,
+  onDeleteCustomer,
+  onTogglePayment,
+}) {
   const { id } = useParams();
 
-  const initialCustomer = customers.find(
-    (c) => c.id === Number(id)
-  );
-
-  const [customer, setCustomer] = useState(initialCustomer);
+  const customer = customers.find((c) => c.id === Number(id));
 
   if (!customer) {
     return <h1>Customer not found</h1>;
-  }
-
-  function handleToggle(month) {
-    setCustomer((prev) => ({
-      ...prev,
-      payments: {
-        ...prev.payments,
-        [month]: !prev.payments[month],
-      },
-    }));
   }
 
   return (
@@ -31,6 +21,8 @@ export default function Customer({ customers }) {
       <div className="customer__header">
         <Link to="/">← Back to customer list</Link>
         <h1>{customer.name}</h1>
+        <Link to={`/customer/${customer.id}/edit`}>Edit</Link>
+        <Link to=""></Link>
       </div>
 
       <div className="customer__sheet">
@@ -55,8 +47,8 @@ export default function Customer({ customers }) {
         <div className="sheet__grid">
           <PaymentGrid
             customer={customer}
-            onToggle={handleToggle}
-          />
+            onToggle={(month) => onTogglePayment(customer.id, month)}
+          />{" "}
         </div>
       </div>
     </div>
