@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import "./App.scss";
-
 import Dashboard from "./features/dashboard/pages/Dashboard";
 import Customers from "./features/customers/pages/Customers";
 import Customer from "./features/customers/pages/Customer";
