@@ -11,7 +11,7 @@ export const customers = [
   },
   {
     id: 2,
-    name: "Μαρία Παπαδοπούλου",
+    name: "Μαρία",
     monthlyFee: 80,
     payments: {
       January: true,
@@ -21,12 +21,22 @@ export const customers = [
   },
   {
     id: 3,
-    name: "Εταιρεία Χ",
-    monthlyFee: 120,
+    name: "Iβάν",
+    monthlyFee: 120000,
     payments: {
       January: false,
       February: false,
       March: false,
     },
   },
+  {
+    id: 4,
+    name: "Νιάνια",
+    monthlyFee: 0.1,
+    payments: {
+      January: false,
+      February: false,
+      March: false,
+    },
+  }
 ];
