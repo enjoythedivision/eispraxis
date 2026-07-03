@@ -11,7 +11,15 @@ import EditCustomer from "./features/customers/pages/EditCustomer";
 import { customers as initialCustomers } from "./data/customers";
 
 export default function App() {
-  const [customers, setCustomers] = useState(initialCustomers);
+  const [customers, setCustomers] = useState(() => {
+    const savedCustomers = localStorage.getItem("customers");
+
+    return savedCustomers ? JSON.parse(savedCustomers) : initialCustomers;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("customers", JSON.stringify(customers));
+  }, [customers]);
 
   const defaultPayments = {
     January: true,
@@ -47,8 +55,8 @@ export default function App() {
 
   function handleEditCustomer(id, newName, newFee) {
     setCustomers((prev) => {
-      return prev.map((c) => 
-        c.id === id ? { ...c, name: newName, monthlyFee: newFee } : c
+      return prev.map((c) =>
+        c.id === id ? { ...c, name: newName, monthlyFee: newFee } : c,
       );
     });
   }
@@ -56,9 +64,11 @@ export default function App() {
   function handleTogglePayment(id, month) {
     setCustomers((prev) => {
       return prev.map((c) =>
-        c.id === id ? {...c, payments: {...c.payments, [month]: !c.payments[month],},} : c,
-      )},
-    );
+        c.id === id
+          ? { ...c, payments: { ...c.payments, [month]: !c.payments[month] } }
+          : c,
+      );
+    });
   }
 
   return (
@@ -82,7 +92,15 @@ export default function App() {
 
           <Route path="/dashboard" element={<Dashboard />} />
 
-          <Route path="/customer/:id/edit" element={<EditCustomer customers={customers} onEditCustomer={handleEditCustomer}/>} />
+          <Route
+            path="/customer/:id/edit"
+            element={
+              <EditCustomer
+                customers={customers}
+                onEditCustomer={handleEditCustomer}
+              />
+            }
+          />
 
           <Route
             path="/add-new"
