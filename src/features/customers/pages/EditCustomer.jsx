@@ -26,32 +26,36 @@ export default function EditCustomer({ customers, onEditCustomer }) {
   }
 
   return (
-    <>
+    <div className="customer-form">
       <h1>Edit Customer Details</h1>
 
       <form onSubmit={handleEdit}>
-        <label htmlFor="name">Customer Name</label>
-        <input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter customer name"
-        />
+        <div className="form-group">
+          <label htmlFor="name">Customer Name</label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter customer name"
+          />
+        </div>
 
-        <label htmlFor="fee">Monthly Fee</label>
-        <input
-          id="fee"
-          type="number"
-          value={fee}
-          onChange={(e) => setFee(e.target.value)}
-          placeholder="Enter customer fee"
-        />
+        <div className="form-group">
+          <label htmlFor="fee">Monthly Fee</label>
+          <input
+            id="fee"
+            type="number"
+            value={fee}
+            onChange={(e) => setFee(e.target.value)}
+            placeholder="Enter customer fee"
+          />
+        </div>
 
         <button className="btn btn-primary" type="submit">
           Save Changes
         </button>
       </form>
-    </>
+    </div>
   );
 }
