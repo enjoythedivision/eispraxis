@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Eispraxis.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8404e3329571306e386f7ace00c4a6208cc47425")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+585b06ca45eaf8ad95e636c347ac1a9a7ce8c699")]
 [assembly: System.Reflection.AssemblyProductAttribute("Eispraxis.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Eispraxis.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
