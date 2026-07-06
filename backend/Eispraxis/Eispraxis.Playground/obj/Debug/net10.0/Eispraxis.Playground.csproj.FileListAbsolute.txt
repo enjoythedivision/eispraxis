@@ -1,0 +1,15 @@
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\bin\Debug\net10.0\Eispraxis.Playground.exe
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\bin\Debug\net10.0\Eispraxis.Playground.deps.json
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\bin\Debug\net10.0\Eispraxis.Playground.runtimeconfig.json
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\bin\Debug\net10.0\Eispraxis.Playground.dll
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\bin\Debug\net10.0\Eispraxis.Playground.pdb
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.AssemblyInfoInputs.cache
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.AssemblyInfo.cs
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.csproj.CoreCompileInputs.cache
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.sourcelink.json
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.dll
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\refint\Eispraxis.Playground.dll
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.pdb
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\Eispraxis.Playground.genruntimeconfig.cache
+C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Playground\obj\Debug\net10.0\ref\Eispraxis.Playground.dll
