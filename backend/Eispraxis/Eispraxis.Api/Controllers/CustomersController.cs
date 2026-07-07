@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using Eispraxis.Api.Services;
 namespace Eispraxis.Api.Controllers;
 
 [ApiController]
@@ -9,20 +9,10 @@ public class CustomersController : ControllerBase
     [HttpGet]
     public IActionResult GetCustomers()
     {
-        return Ok(new[]
-        {
-            new
-            {
-                Id = 1,
-                Name = "Maria",
-                MonthlyFee = 50
-            },
-            new
-            {
-                Id = 2,
-                Name = "George",
-                MonthlyFee = 40
-            }
-        });
+        var service = new CustomerService();
+
+        var customers = service.GetCustomers();
+
+        return Ok(customers);
     }
 }
