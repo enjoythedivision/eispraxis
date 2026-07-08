@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Eispraxis.Api.DTOs;
 using Eispraxis.Api.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 namespace Eispraxis.Api.Controllers;
 
 [ApiController]
@@ -14,5 +16,13 @@ public class CustomersController : ControllerBase
         var customers = service.GetCustomers();
 
         return Ok(customers);
+    }
+
+    [HttpPost]
+    public IActionResult CreateCustomer(CreateCustomerRequest request)
+    {
+        var service = new CustomerService();
+        var customer = service.CreateCustomer(request.Name, request.MonthlyFee);
+        return Ok(customer);
     }
 }

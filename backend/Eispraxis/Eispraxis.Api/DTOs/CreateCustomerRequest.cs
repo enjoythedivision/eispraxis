@@ -1,6 +1,8 @@
-﻿namespace Eispraxis.Api.DTOs
+﻿namespace Eispraxis.Api.DTOs;
+
+public class CreateCustomerRequest
 {
-    public class CreateCustomerRequest
-    {
-    }
+    public string Name { get; set; } = string.Empty;
+
+    public int MonthlyFee { get; set; }
 }
