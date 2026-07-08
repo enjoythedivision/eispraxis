@@ -8,21 +8,25 @@ namespace Eispraxis.Api.Controllers;
 [Route("api/[controller]")]
 public class CustomersController : ControllerBase
 {
+
+    private readonly CustomerService _customerService;
+    public CustomersController(CustomerService customerService)
+    {
+        _customerService = customerService;
+    }
+
     [HttpGet]
     public IActionResult GetCustomers()
     {
-        var service = new CustomerService();
-
-        var customers = service.GetCustomers();
-
+        var customers = _customerService.GetCustomers();
         return Ok(customers);
     }
 
     [HttpPost]
     public IActionResult CreateCustomer(CreateCustomerRequest request)
     {
-        var service = new CustomerService();
-        var customer = service.CreateCustomer(request.Name, request.MonthlyFee);
+        var customer = _customerService.CreateCustomer(request.Name, request.MonthlyFee);
+
         return Ok(customer);
     }
 }
