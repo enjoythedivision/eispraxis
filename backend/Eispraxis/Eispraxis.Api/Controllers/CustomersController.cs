@@ -29,4 +29,40 @@ public class CustomersController : ControllerBase
 
         return Ok(customer);
     }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateCustomer(int id, UpdateCustomerRequest request)
+    {
+        var customer = _customerService.UpdateCustomer(
+            id,
+            request.Name,
+            request.MonthlyFee
+        );
+
+        if (customer == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(customer);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteCustomer([FromRoute] int id)
+    {
+        var deleted = _customerService.DeleteCustomer(id);
+
+        if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetCustomer(int id)
+    {
+        return Ok(id);
+    }
 }
