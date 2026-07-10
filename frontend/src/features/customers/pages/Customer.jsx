@@ -1,19 +1,64 @@
-import { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Customer.scss";
 import PaymentGrid from "./PaymentGrid.jsx";
 
-export default function Customer({
-  customers,
-  onTogglePayment,
-}) {
+export default function Customer() {
   const { id } = useParams();
-
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
   const navigate = useNavigate();
 
-  const customer = customers.find((c) => c.id === Number(id));
+  const [customer, setCustomer] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  useEffect(() => {
+    async function fetchCustomer() {
+      try {
+        const response = await fetch(
+          `http://localhost:5021/api/customers/${id}`,
+        );
+
+        if (!response.ok) {
+          setCustomer(null);
+          return;
+        }
+
+        const data = await response.json();
+        setCustomer(data);
+      } catch (error) {
+        console.error("Failed to fetch customer:", error);
+        setCustomer(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCustomer();
+  }, [id]);
+
+  async function handleDelete() {
+    try {
+      const response = await fetch(
+        `http://localhost:5021/api/customers/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (!response.ok) {
+        console.error("Failed to delete customer");
+        return;
+      }
+
+      navigate("/");
+    } catch (error) {
+      console.error("Failed to delete customer:", error);
+    }
+  }
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   if (!customer) {
     return <h1>Customer not found</h1>;
@@ -65,10 +110,7 @@ export default function Customer({
         </div>
 
         <div className="sheet__grid">
-          <PaymentGrid
-            customer={customer}
-            onToggle={(month) => onTogglePayment(customer.id, month)}
-          />
+          <PaymentGrid customer={customer} />
         </div>
       </div>
 
@@ -86,13 +128,7 @@ export default function Customer({
                 Cancel
               </button>
 
-              <button
-                className="btn btn-danger"
-                onClick={() => {
-                  onDeleteCustomer(customer.id);
-                  navigate("/");
-                }}
-              >
+              <button className="btn btn-danger" onClick={handleDelete}>
                 Yes, delete
               </button>
             </div>

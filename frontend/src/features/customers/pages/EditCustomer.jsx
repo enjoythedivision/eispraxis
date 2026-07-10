@@ -1,28 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function EditCustomer({ customers, onEditCustomer }) {
+export default function EditCustomer() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const customer = customers.find((c) => c.id === Number(id));
+  const [name, setName] = useState("");
+  const [fee, setFee] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const [name, setName] = useState(customer?.name || "");
-  const [fee, setFee] = useState(customer?.monthlyFee || "");
+  useEffect(() => {
+    async function loadCustomer() {
+      const response = await fetch(`http://localhost:5021/api/customers/${id}`);
 
-  if (!customer) {
-    return <h1>Customer not found</h1>;
+      const customer = await response.json();
+
+      setName(customer.name);
+      setFee(customer.monthlyFee);
+      setLoading(false);
+    }
+
+    loadCustomer();
+  }, [id]);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
   }
 
-  function handleEdit(e) {
+  async function handleEdit(e) {
     e.preventDefault();
 
     if (!name.trim()) return;
     if (!fee) return;
 
-    onEditCustomer(customer.id, name.trim(), Number(fee));
+    await fetch(`http://localhost:5021/api/customers/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name.trim(),
+        monthlyFee: Number(fee),
+      }),
+    });
 
-    navigate(`/customer/${customer.id}`);
+    navigate(`/customer/${id}`);
   }
 
   return (
