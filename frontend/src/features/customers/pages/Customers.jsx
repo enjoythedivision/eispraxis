@@ -1,9 +1,15 @@
-import { useState } from "react";
-import "./Customers.scss";
+import { useEffect, useState } from "react";import "./Customers.scss";
 import { Link } from "react-router-dom"
 
-export default function Customers({ customers }) {
+export default function Customers() {
   const [search, setSearch] = useState("");
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5021/api/customers")
+        .then(response => response.json())
+        .then(data => setCustomers(data));
+  }, []);
 
   const filteredCustomers = customers.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase()),

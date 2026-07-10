@@ -158,4 +158,3 @@ C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Api\obj\Debug\ne
 C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Api\obj\Debug\net10.0\Eispraxis.Api.pdb
 C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Api\obj\Debug\net10.0\Eispraxis.Api.genruntimeconfig.cache
 C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Api\obj\Debug\net10.0\ref\Eispraxis.Api.dll
-C:\Users\Aorus\Desktop\my\eispraxis\backend\Eispraxis\Eispraxis.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
