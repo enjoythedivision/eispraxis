@@ -1,18 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function AddNewCustomer({ onAddCustomer }) {
+export default function AddNewCustomer() {
   const [name, setName] = useState("");
   const [fee, setFee] = useState("");
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!name.trim()) return;
     if (!fee) return;
 
-    onAddCustomer(name.trim(), Number(fee));
+    await fetch("http://localhost:5021/api/customers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name.trim(),
+        monthlyFee: Number(fee),
+      }),
+    });
+
     setName("");
     setFee("");
 
