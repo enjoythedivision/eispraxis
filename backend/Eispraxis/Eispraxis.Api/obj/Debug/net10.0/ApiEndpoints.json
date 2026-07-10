@@ -27,6 +27,22 @@
   },
   {
     "ContainingType": "Eispraxis.Api.Controllers.CustomersController",
+    "Method": "GetCustomer",
+    "RelativePath": "api/Customers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Eispraxis.Api.Controllers.CustomersController",
     "Method": "UpdateCustomer",
     "RelativePath": "api/Customers/{id}",
     "HttpMethod": "PUT",
@@ -51,22 +67,6 @@
     "Method": "DeleteCustomer",
     "RelativePath": "api/Customers/{id}",
     "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Eispraxis.Api.Controllers.CustomersController",
-    "Method": "GetCustomer",
-    "RelativePath": "api/Customers/{id}",
-    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [

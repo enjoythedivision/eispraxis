@@ -1,43 +1,64 @@
 ﻿using Eispraxis.Api.DTOs;
 using Eispraxis.Api.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
+
 namespace Eispraxis.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class CustomersController : ControllerBase
 {
-
     private readonly CustomerService _customerService;
+
     public CustomersController(CustomerService customerService)
     {
         _customerService = customerService;
     }
 
     [HttpGet]
-    public IActionResult GetCustomers()
+    public async Task<IActionResult> GetCustomers()
     {
-        var customers = _customerService.GetCustomers();
+        var customers = await _customerService.GetCustomersAsync();
+
         return Ok(customers);
     }
 
-    [HttpPost]
-    public IActionResult CreateCustomer(CreateCustomerRequest request)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetCustomer(int id)
     {
-        var customer = _customerService.CreateCustomer(request.Name, request.MonthlyFee);
+        var customer = await _customerService.GetCustomerByIdAsync(id);
+
+        if (customer == null)
+        {
+            return NotFound();
+        }
 
         return Ok(customer);
     }
 
-    [HttpPut("{id}")]
-    public IActionResult UpdateCustomer(int id, UpdateCustomerRequest request)
+    [HttpPost]
+    public async Task<IActionResult> CreateCustomer(
+        CreateCustomerRequest request)
     {
-        var customer = _customerService.UpdateCustomer(
+        var customer = await _customerService.CreateCustomerAsync(
+            request.Name,
+            request.MonthlyFee);
+
+        return CreatedAtAction(
+            nameof(GetCustomer),
+            new { id = customer.Id },
+            customer);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateCustomer(
+        int id,
+        UpdateCustomerRequest request)
+    {
+        var customer = await _customerService.UpdateCustomerAsync(
             id,
             request.Name,
-            request.MonthlyFee
-        );
+            request.MonthlyFee);
 
         if (customer == null)
         {
@@ -48,9 +69,9 @@ public class CustomersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteCustomer([FromRoute] int id)
+    public async Task<IActionResult> DeleteCustomer(int id)
     {
-        var deleted = _customerService.DeleteCustomer(id);
+        var deleted = await _customerService.DeleteCustomerAsync(id);
 
         if (!deleted)
         {
@@ -58,11 +79,5 @@ public class CustomersController : ControllerBase
         }
 
         return NoContent();
-    }
-
-    [HttpGet("{id}")]
-    public IActionResult GetCustomer(int id)
-    {
-        return Ok(id);
     }
 }
