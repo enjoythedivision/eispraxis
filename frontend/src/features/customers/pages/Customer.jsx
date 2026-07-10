@@ -5,7 +5,6 @@ import PaymentGrid from "./PaymentGrid.jsx";
 
 export default function Customer({
   customers,
-  onDeleteCustomer,
   onTogglePayment,
 }) {
   const { id } = useParams();
