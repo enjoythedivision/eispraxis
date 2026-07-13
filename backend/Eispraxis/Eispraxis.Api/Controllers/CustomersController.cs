@@ -80,4 +80,20 @@ public class CustomersController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPatch("{id}/payments/{year}/{month}")]
+    public async Task<IActionResult> TogglePayment(
+    int id,
+    int year,
+    int month)
+    {
+        var payment = await _customerService.TogglePaymentAsync(id, year, month);
+
+        if (payment == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(payment);
+    }
 }

@@ -2,10 +2,18 @@ import PaymentCard from "./PaymentCard";
 import "./PaymentGrid.scss";
 
 const months = [
-  "January", "February", "March",
-  "April", "May", "June",
-  "July", "August", "September",
-  "October", "November", "December"
+  { number: 1, name: "January" },
+  { number: 2, name: "February" },
+  { number: 3, name: "March" },
+  { number: 4, name: "April" },
+  { number: 5, name: "May" },
+  { number: 6, name: "June" },
+  { number: 7, name: "July" },
+  { number: 8, name: "August" },
+  { number: 9, name: "September" },
+  { number: 10, name: "October" },
+  { number: 11, name: "November" },
+  { number: 12, name: "December" },
 ];
 
 export default function PaymentGrid({ customer, onToggle }) {
@@ -15,11 +23,11 @@ export default function PaymentGrid({ customer, onToggle }) {
     <div className="payment-grid">
       {months.map((month) => (
         <PaymentCard
-          key={month}
-          month={month}
+          key={month.number}
+          month={month.name}
           amount={customer.monthlyFee}
-          paid={customer.payments?.[month]}
-          onToggle={() => onToggle(month)}
+          paid={payment?.isPaid ?? false}
+          onToggle={() => onToggle(month.number)}
         />
       ))}
     </div>

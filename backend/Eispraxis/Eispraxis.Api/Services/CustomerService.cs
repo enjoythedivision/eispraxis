@@ -21,6 +21,7 @@ public class CustomerService
     public async Task<Customer?> GetCustomerByIdAsync(int id)
     {
         return await _context.Customers
+            .Include(c => c.Payments)
             .FirstOrDefaultAsync(c => c.Id == id);
     }
 
@@ -73,5 +74,50 @@ public class CustomerService
         await _context.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<Payment?> TogglePaymentAsync(
+    int customerId,
+    int year,
+    int month)
+    {
+        var customerExists = await _context.Customers
+            .AnyAsync(c => c.Id == customerId);
+
+        if (!customerExists)
+        {
+            return null;
+        }
+
+        var payment = await _context.Payments
+            .FirstOrDefaultAsync(p =>
+                p.CustomerId == customerId &&
+                p.Year == year &&
+                p.Month == month);
+
+        if (payment == null)
+        {
+            payment = new Payment
+            {
+                CustomerId = customerId,
+                Year = year,
+                Month = month,
+                IsPaid = true,
+                PaidAt = DateTime.UtcNow
+            };
+
+            _context.Payments.Add(payment);
+        }
+        else
+        {
+            payment.IsPaid = !payment.IsPaid;
+            payment.PaidAt = payment.IsPaid
+                ? DateTime.UtcNow
+                : null;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return payment;
     }
 }

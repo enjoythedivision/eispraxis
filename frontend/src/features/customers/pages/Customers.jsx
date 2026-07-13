@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";import "./Customers.scss";
+import { useEffect, useState } from "react";
+import "./Customers.scss";
 import { Link } from "react-router-dom"
 
 export default function Customers() {

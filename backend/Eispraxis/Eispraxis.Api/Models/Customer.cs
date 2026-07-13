@@ -12,5 +12,7 @@
         public string Name { get; set; } = "";
         public int MonthlyFee { get; set; }
 
+        public List<Payment> Payments { get; set; } = new();
+
     }
 }
