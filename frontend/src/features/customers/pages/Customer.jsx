@@ -64,6 +64,38 @@ export default function Customer() {
     return <h1>Customer not found</h1>;
   }
 
+  async function handleTogglePayment(month) {
+    const year = 2025;
+
+    const response = await fetch(
+      `http://localhost:5021/api/customers/${id}/payments/${year}/${month}`,
+      {
+        method: "PATCH",
+      },
+    );
+
+    if (!response.ok) return;
+
+    const updatedPayment = await response.json();
+
+    setCustomer((current) => {
+      const existingPayment = current.payments.find(
+        (p) => p.year === year && p.month === month,
+      );
+
+      const payments = existingPayment
+        ? current.payments.map((p) =>
+            p.year === year && p.month === month ? updatedPayment : p,
+          )
+        : [...current.payments, updatedPayment];
+
+      return {
+        ...current,
+        payments,
+      };
+    });
+  }
+
   return (
     <div className="customer">
       <div className="customer__header">
@@ -110,7 +142,7 @@ export default function Customer() {
         </div>
 
         <div className="sheet__grid">
-          <PaymentGrid customer={customer} />
+          <PaymentGrid customer={customer} onToggle={handleTogglePayment} />
         </div>
       </div>
 
