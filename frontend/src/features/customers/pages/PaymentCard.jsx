@@ -1,7 +1,6 @@
 import "./PaymentCard.scss";
 
 export default function PaymentCard({ month, amount, paid, onToggle }) {
-
   return (
     <div className="payment-card">
       <div className="payment-card__top">
@@ -12,7 +11,8 @@ export default function PaymentCard({ month, amount, paid, onToggle }) {
               ? "payment-card__status--complete"
               : "payment-card__status--pending"
           }`}
-onClick={() => onToggle(month)}        >
+          onClick={() => onToggle(month)}
+        >
           {paid ? "✓" : "✕"}
         </button>
       </div>

@@ -65,7 +65,7 @@ export default function Customer() {
   }
 
   async function handleTogglePayment(month) {
-    const year = 2025;
+    const year = 2025; //TODO: Handle dynamically
 
     const response = await fetch(
       `http://localhost:5021/api/customers/${id}/payments/${year}/${month}`,
