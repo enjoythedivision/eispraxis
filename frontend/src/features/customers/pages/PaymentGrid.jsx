@@ -3,7 +3,7 @@ import PaymentCard from "./PaymentCard";
 export default function PaymentGrid({ customer, onToggle }) {
   if (!customer) return null;
 
-  const year = 2025;
+  const year = 2025; //TODO: Handle dynamically
   const months = [
     { number: 1, name: "January" },
     { number: 2, name: "February" },

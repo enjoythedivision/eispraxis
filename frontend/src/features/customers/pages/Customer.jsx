@@ -123,7 +123,7 @@ export default function Customer() {
       </div>
 
       <div className="customer__sheet">
-        <div className="customer__notes" />
+        {/* <div className="customer__notes" /> TODO: Add notes section */}
 
         <div className="sheet__title">
           <h2>Payment Tracker</h2>
