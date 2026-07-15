@@ -1,6 +1,6 @@
 import "./PaymentCard.scss";
 
-export default function PaymentCard({ month, amount, paid, onToggle }) {
+export default function PaymentCard({ month, amount, paid, onToggle, paymentDate }) {
   return (
     <div className="payment-card">
       <div className="payment-card__top">
@@ -25,7 +25,7 @@ export default function PaymentCard({ month, amount, paid, onToggle }) {
       <hr />
 
       <p className="payment-card__label">Payment Date</p>
-      <p className="payment-card__date">Jan 12, 2025</p>
+      <p className="payment-card__date">{paymentDate}</p>
     </div>
   );
 }
