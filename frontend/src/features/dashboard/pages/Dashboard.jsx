@@ -54,24 +54,24 @@ export default function Dashboard() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div>
       <h1>Dashboard</h1>
 
       <div style={{ marginBottom: "2rem" }}>
         <h2>Money Collected</h2>
-        <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+        <div>
           €{received.toFixed(2)} / €{expectedRevenue.toFixed(2)}
         </div>
       </div>
 
       <div style={{ marginBottom: "2rem" }}>
         <h2>Collection Rate</h2>
-        <div style={{ fontSize: "2rem", fontWeight: "bold" }}>{collectionRate}%</div>
+        <div>{collectionRate}%</div>
       </div>
 
       <div style={{ marginBottom: "2rem" }}>
         <h2>Paid / Unpaid</h2>
-        <div style={{ fontSize: "1.2rem" }}>
+        <div>
           <div>Paid: {paid}</div>
           <div>Unpaid: {unpaid}</div>
         </div>
@@ -79,7 +79,7 @@ export default function Dashboard() {
 
       <div style={{ marginBottom: "2rem" }}>
         <h2>Total Customers</h2>
-        <div style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+        <div>
           {totalCustomers} customers
         </div>
       </div>
