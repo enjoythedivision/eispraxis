@@ -22,6 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<DashboardService>();
 
 builder.Services
     .AddControllers()
