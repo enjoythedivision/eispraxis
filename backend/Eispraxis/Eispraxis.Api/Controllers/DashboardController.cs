@@ -20,4 +20,11 @@ public class DashboardController : ControllerBase
         var customers = await _dashboardService.GetUnpaidCustomersAsync(year, month);
         return Ok(customers);
     }
+
+    [HttpGet("summary")]
+    public async Task<IActionResult> GetDashboardSummary(int year, int month)
+    {
+        var summary = await _dashboardService.GetDashboardSummaryAsync(year, month);
+        return Ok(summary);
+    }
 }

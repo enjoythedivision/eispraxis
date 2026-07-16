@@ -24,7 +24,7 @@ export default function Dashboard() {
     <div>
       <h1>Dashboard</h1>
 
-      <h2>Unpaid Customers</h2>
+      <h2>Unpaid Customers ({currentMonth}/{currentYear})</h2>
 
       <ul>
         {customers.map((customer) => (
