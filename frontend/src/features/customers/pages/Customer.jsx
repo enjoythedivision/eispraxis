@@ -11,6 +11,14 @@ export default function Customer() {
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(currentYear); //get current year + set state for current year
+
+  const years = [];
+  for (let year = 2025; year <= currentYear; year++) {
+    years.push(year);
+  }
+
   useEffect(() => {
     async function fetchCustomer() {
       try {
@@ -65,7 +73,7 @@ export default function Customer() {
   }
 
   async function handleTogglePayment(month) {
-    const year = 2025; //TODO: Handle dynamically
+    const year = selectedYear;
 
     const response = await fetch(
       `http://localhost:5021/api/customers/${id}/payments/${year}/${month}`,
@@ -128,6 +136,14 @@ export default function Customer() {
         <div className="sheet__title">
           <h2>Payment Tracker</h2>
 
+          <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+
           <span className="status__badges">
             <span>
               <span className="complete"></span> Complete
@@ -142,7 +158,11 @@ export default function Customer() {
         </div>
 
         <div className="sheet__grid">
-          <PaymentGrid customer={customer} onToggle={handleTogglePayment} />
+          <PaymentGrid
+            customer={customer}
+            year={selectedYear}
+            onToggle={handleTogglePayment}
+          />
         </div>
       </div>
 
