@@ -15,7 +15,9 @@ public class CustomerService
 
     public async Task<List<Customer>> GetCustomersAsync()
     {
-        return await _context.Customers.ToListAsync();
+        return await _context.Customers
+            .Include(c => c.Payments)
+            .ToListAsync();
     }
 
     public async Task<Customer?> GetCustomerByIdAsync(int id)

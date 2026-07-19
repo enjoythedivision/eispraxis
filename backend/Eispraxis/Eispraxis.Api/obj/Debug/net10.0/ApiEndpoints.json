@@ -106,6 +106,27 @@
   },
   {
     "ContainingType": "Eispraxis.Api.Controllers.DashboardController",
+    "Method": "GetDashboardSummary",
+    "RelativePath": "api/Dashboard/summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "month",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Eispraxis.Api.Controllers.DashboardController",
     "Method": "GetUnpaidCustomers",
     "RelativePath": "api/Dashboard/unpaid",
     "HttpMethod": "GET",

@@ -12,6 +12,7 @@ export default function Dashboard() {
       try {
         const response = await fetch("http://localhost:5021/api/customers");
         const data = await response.json();
+        console.log("Fetched customers:", data);
         setAllCustomers(data);
       } catch (error) {
         console.error("Failed to fetch customers:", error);

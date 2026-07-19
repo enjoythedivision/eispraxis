@@ -72,6 +72,27 @@ namespace Eispraxis.Api.Migrations
                     b.ToTable("Payments");
                 });
 
+            modelBuilder.Entity("Eispraxis.Api.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Eispraxis.Api.Models.Payment", b =>
                 {
                     b.HasOne("Eispraxis.Api.Models.Customer", "Customer")
