@@ -13,6 +13,8 @@
         public int MonthlyFee { get; set; }
 
         public List<Payment> Payments { get; set; } = new();
+        
+        public List<Note> Notes { get; set; } = new();
 
     }
 }
