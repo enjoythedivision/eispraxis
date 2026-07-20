@@ -27,13 +27,13 @@ export default function Dashboard() {
   // Calculate metrics
   const expectedRevenue = allCustomers.reduce(
     (sum, customer) => sum + customer.monthlyFee,
-    0
+    0,
   );
 
   const { paid, unpaid, received } = allCustomers.reduce(
     (acc, customer) => {
       const isPaid = customer.payments?.some(
-        (p) => p.year === currentYear && p.month === currentMonth && p.isPaid
+        (p) => p.year === currentYear && p.month === currentMonth && p.isPaid,
       );
 
       if (isPaid) {
@@ -45,7 +45,7 @@ export default function Dashboard() {
 
       return acc;
     },
-    { paid: 0, unpaid: 0, received: 0 }
+    { paid: 0, unpaid: 0, received: 0 },
   );
 
   const collectionRate =
@@ -78,15 +78,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div style={{ marginBottom: "2rem" }}>
-        <h2>Total Customers</h2>
-        <div>
-          {totalCustomers} customers
-        </div>
-      </div>
-
       <div>
-        <h2>Unpaid Customers ({currentMonth}/{currentYear})</h2>
+        <h2>
+          Unpaid Customers ({currentMonth}/{currentYear})
+        </h2>
         {unpaid > 0 ? (
           <ul>
             {allCustomers
@@ -96,8 +91,8 @@ export default function Dashboard() {
                     (p) =>
                       p.year === currentYear &&
                       p.month === currentMonth &&
-                      p.isPaid
-                  )
+                      p.isPaid,
+                  ),
               )
               .map((customer) => (
                 <li key={customer.id}>
@@ -107,6 +102,31 @@ export default function Dashboard() {
           </ul>
         ) : (
           <p>All customers have paid.</p>
+        )}
+      </div>
+
+      <div>
+        <h2>Paid Customers</h2>
+
+        {paid > 0 ? (
+          <ul>
+            {allCustomers
+              .filter((customer) =>
+                customer.payments?.some(
+                  (p) =>
+                    p.year === currentYear &&
+                    p.month === currentMonth &&
+                    p.isPaid,
+                ),
+              )
+              .map((customer) => (
+                <li key={customer.id}>
+                  {customer.name} - €{customer.monthlyFee}
+                </li>
+              ))}
+          </ul>
+        ) : (
+          <p>No customers have paid yet.</p>
         )}
       </div>
     </div>
