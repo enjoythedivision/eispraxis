@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./Dashboard.module.scss";
 
 export default function Dashboard() {
   const [allCustomers, setAllCustomers] = useState([]);
@@ -78,7 +79,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div>
+      <div style={{ marginBottom: "2rem" }}>
         <h2>
           Unpaid Customers ({currentMonth}/{currentYear})
         </h2>
