@@ -31,7 +31,7 @@ export default function PaymentGrid({ customer, onToggle, year }) {
             month={month.name}
             amount={customer.monthlyFee}
             paid={payment?.isPaid ?? false}
-            paymentDate={payment?.paidAt || "Not paid"}
+            paymentDate={payment?.paidAt}
             onToggle={() => onToggle(month.number)}
           />
         );

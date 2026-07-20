@@ -25,7 +25,7 @@ export default function PaymentCard({ month, amount, paid, onToggle, paymentDate
       <hr />
 
       <p className="payment-card__label">Payment Date</p>
-      <p className="payment-card__date">{paymentDate}</p>
+      <p className="payment-card__date">{paymentDate ? new Date(paymentDate).toLocaleDateString("el-GR") : "Not paid"}</p>
     </div>
   );
 }
