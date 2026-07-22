@@ -6,6 +6,7 @@ import Customers from "./features/customers/pages/Customers";
 import Customer from "./features/customers/pages/Customer";
 import AddNewCustomer from "./features/customers/pages/AddNewCustomer";
 import EditCustomer from "./features/customers/pages/EditCustomer";
+import AddNote from "./features/customers/pages/AddNote";
 
 export default function App() {
   return (
@@ -16,22 +17,15 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Customers />} />
 
-          <Route
-            path="/customer/:id"
-            element={<Customer />}
-          />
+          <Route path="/customer/:id" element={<Customer />} />
 
           <Route path="/dashboard" element={<Dashboard />} />
 
-          <Route
-            path="/customer/:id/edit"
-            element={<EditCustomer />}
-          />
+          <Route path="/customer/:id/edit" element={<EditCustomer />} />
 
-          <Route
-            path="/add-new"
-            element={<AddNewCustomer />}
-          />
+          <Route path="/add-new" element={<AddNewCustomer />} />
+
+          <Route path="/customer/:id/addnote" element={<AddNote />} />
         </Routes>
       </main>
     </div>

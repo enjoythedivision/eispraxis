@@ -10,6 +10,7 @@ export default function Customer() {
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [notes, setNotes] = useState([]);
 
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear); //get current year + set state for current year
@@ -41,7 +42,16 @@ export default function Customer() {
       }
     }
 
+    async function fetchNotes() {
+      const response = await fetch(
+        `http://localhost:5021/api/customers/${id}/notes`
+      );
+      const data = await response.json();
+      setNotes(data);
+    }
+
     fetchCustomer();
+    fetchNotes();
   }, [id]);
 
   async function handleDelete() {
@@ -131,12 +141,18 @@ export default function Customer() {
       </div>
 
       <div className="customer__sheet">
-        {/* <div className="customer__notes" /> TODO: Add notes section */}
+        <div className="customer__notes">
+          <Link to={`/customer/${customer.id}/addnote`}>Add note...</Link>
+          {notes.map(n => (<div key={n.id} className="note">{n.content}</div>))}
+        </div>
 
         <div className="sheet__title">
           <h2>Payment Tracker</h2>
 
-          <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+          >
             {years.map((year) => (
               <option key={year} value={year}>
                 {year}

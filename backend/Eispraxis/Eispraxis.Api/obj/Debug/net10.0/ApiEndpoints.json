@@ -27,6 +27,43 @@
   },
   {
     "ContainingType": "Eispraxis.Api.Controllers.CustomersController",
+    "Method": "GetNotes",
+    "RelativePath": "api/Customers/{customerId}/notes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Eispraxis.Api.Controllers.CustomersController",
+    "Method": "CreateNoteAsync",
+    "RelativePath": "api/Customers/{customerId}/notes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Eispraxis.Api.DTOs.CreateNoteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Eispraxis.Api.Controllers.CustomersController",
     "Method": "GetCustomer",
     "RelativePath": "api/Customers/{id}",
     "HttpMethod": "GET",

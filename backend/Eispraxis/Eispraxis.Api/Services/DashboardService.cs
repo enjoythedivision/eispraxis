@@ -63,8 +63,7 @@ public class DashboardService
             ExpectedRevenue = expectedRevenue,
             CollectionRate = collectionRate,
             PaidCustomers = paidCustomersCount,
-            UnpaidCustomers = unpaidCustomersCount,
-            TotalCustomers = totalCustomers
+            UnpaidCustomers = unpaidCustomersCount
         };
     }
 }

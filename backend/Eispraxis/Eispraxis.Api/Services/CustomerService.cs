@@ -122,4 +122,19 @@ public class CustomerService
 
         return payment;
     }
+
+    public async Task<List<Note>> GetNotesAsync(int customerId)
+    {
+        return await _context.Notes
+            .Where(note => note.CustomerId == customerId)
+            .ToListAsync();
+    }
+
+    public async Task<Note> CreateNoteAsync(int customerId, string content)
+    {
+        var note = new Note(content, customerId);
+        _context.Notes.Add(note);
+        await _context.SaveChangesAsync();
+        return note;
+    }
 }

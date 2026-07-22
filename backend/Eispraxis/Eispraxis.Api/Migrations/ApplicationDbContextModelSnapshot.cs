@@ -42,6 +42,28 @@ namespace Eispraxis.Api.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Eispraxis.Api.Models.Note", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Notes");
+                });
+
             modelBuilder.Entity("Eispraxis.Api.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -93,6 +115,17 @@ namespace Eispraxis.Api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Eispraxis.Api.Models.Note", b =>
+                {
+                    b.HasOne("Eispraxis.Api.Models.Customer", "Customer")
+                        .WithMany("Notes")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("Eispraxis.Api.Models.Payment", b =>
                 {
                     b.HasOne("Eispraxis.Api.Models.Customer", "Customer")
@@ -106,6 +139,8 @@ namespace Eispraxis.Api.Migrations
 
             modelBuilder.Entity("Eispraxis.Api.Models.Customer", b =>
                 {
+                    b.Navigation("Notes");
+
                     b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618

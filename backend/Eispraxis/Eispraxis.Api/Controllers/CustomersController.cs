@@ -96,4 +96,24 @@ public class CustomersController : ControllerBase
 
         return Ok(payment);
     }
+
+    [HttpGet("{customerId}/notes")]
+    public async Task<IActionResult> GetNotes(int customerId)
+    {
+        var notes = await _customerService.GetNotesAsync(customerId);
+        return Ok(notes);
+
+    }
+
+    [HttpPost("{customerId}/notes")]
+    public async Task<IActionResult> CreateNoteAsync(
+    int customerId,
+    CreateNoteRequest request)
+    {
+        var note = await _customerService.CreateNoteAsync(
+            customerId,
+            request.Content);
+
+        return Ok(note);
+    }
 }
