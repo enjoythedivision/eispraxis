@@ -21,6 +21,8 @@ export default function AddNote() {
         }),
       },
     );
+    navigate(`/customer/${id}`);
+
   };
 
   return (
