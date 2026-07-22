@@ -137,4 +137,17 @@ public class CustomerService
         await _context.SaveChangesAsync();
         return note;
     }
+
+    public async Task<Note> DeleteNoteAsync(int customerId, int noteId)
+    {
+        var note = await _context.Notes
+            .FirstOrDefaultAsync(n => n.CustomerId == customerId && n.Id == noteId);
+        if (note != null)
+        {
+            _context.Notes.Remove(note);
+            await _context.SaveChangesAsync();
+        }
+        return note;
+    }
+
 }
