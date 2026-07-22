@@ -6,15 +6,12 @@ import PaymentGrid from "./PaymentGrid.jsx";
 export default function Customer() {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [notes, setNotes] = useState([]);
-
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear); //get current year + set state for current year
-
   const years = [];
   for (let year = 2025; year <= currentYear; year++) {
     years.push(year);
@@ -44,7 +41,7 @@ export default function Customer() {
 
     async function fetchNotes() {
       const response = await fetch(
-        `http://localhost:5021/api/customers/${id}/notes`
+        `http://localhost:5021/api/customers/${id}/notes`,
       );
       const data = await response.json();
       setNotes(data);
@@ -114,6 +111,21 @@ export default function Customer() {
     });
   }
 
+  const handleDeleteNote = async (noteId) => {
+    const response = await fetch(
+      `http://localhost:5021/api/customers/${id}/notes/${noteId}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    if (!response.ok) {
+      console.error("Failed to delete note");
+      return;
+    }
+
+    setNotes((currentNotes) => currentNotes.filter((n) => n.id !== noteId));
+  };
 
   return (
     <div className="customer">
@@ -144,7 +156,17 @@ export default function Customer() {
       <div className="customer__sheet">
         <div className="customer__notes">
           <Link to={`/customer/${customer.id}/addnote`}>Add note...</Link>
-          {notes.map(n => (<div key={n.id} className="note">{n.content}</div>))}
+          {notes.map((n) => (
+            <div key={n.id} className="note">
+              {n.content}{" "}
+              <button
+                onClick={() => handleDeleteNote(n.id)}
+                className="delete__note"
+              >
+                Delete note
+              </button>
+            </div>
+          ))}
         </div>
 
         <div className="sheet__title">

@@ -120,11 +120,11 @@ public class CustomersController : ControllerBase
     [HttpDelete("{customerId}/notes/{noteId}")]
     public async Task<IActionResult> DeleteNoteAsync(int customerId, int noteId)
     {
-        var deleted = await _customerService.DeleteNoteAsync(customerId, noteId);
-        if (!deleted)
+        var note = await _customerService.DeleteNoteAsync(customerId, noteId);
+        if (note != null)
         {
-            return NotFound();
+            return NoContent();
         }
-        return NoContent();
-    } 
+        return NotFound();
+    }
 }
