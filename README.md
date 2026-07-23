@@ -1,16 +1,56 @@
-# React + Vite
+Eispraxis is a full-stack web app for managing customers, tracking monthly payments, and keeping customer notes in one place. The goal of the project was to build a custom practical management tool while learning how a React frontend communicates with an ASP.NET Core Web API and a SQL database.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The application allows users to:
 
-Currently, two official plugins are available:
+* View all customers
+* Create, search, edit and delete customers
+* Track monthly payments for each customer
+* Add and remove customer notes
+* Navigate through different payment years
+* Keep customer information organized in a clean interface
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+Frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* React w/ React Router
+* JavaScript
+* SCSS
 
-## Expanding the ESLint configuration
+Backend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* ASP.NET Core Web API
+* Entity Framework Core
+* SQL Server
+
+## Project Structure
+
+
+```text
+React
+↓
+Controllers
+↓
+Services
+↓
+Entity Framework Core
+↓
+SQL Server
+```
+
+Controllers handle HTTP requests and responses, Services contain the application logic, and EF Core is responsible for communicating with the database.
+
+## Features
+
+* Customer management (Create, Read, Update, Delete)
+* Payment tracking by month and year
+* Customer notes (Create, Read, Delete)
+* Dashboard with basic stats
+
+## Future Improvements
+
+Some of my ideas for extending the project include:
+
+* User authentication and authorization
+* Real time notifications using SignalR (e.g. reminders for overdue payments)
+* React Native mobile application connected to the same API
