@@ -72,11 +72,11 @@ export default function Customer() {
   }
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <><Link className="back-link" to="/">← Back to customers</Link><h1>Loading...</h1></>;
   }
 
   if (!customer) {
-    return <h1>Customer not found</h1>;
+    return <><Link className="back-link" to="/">← Back to customers</Link><h1>Customer not found</h1></>;
   }
 
   async function handleTogglePayment(month) {

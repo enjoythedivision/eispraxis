@@ -18,9 +18,12 @@ export default function Customers() {
 
   return (
     <div className="customers">
+      <Link className="back-link" to="/dashboard">← Back to dashboard</Link>
       <div className="customers__header">
-        <div><p className="eyebrow">Account register</p><h1>Customers</h1><p className="page-description">Customer details, notes, and monthly payments.</p></div>
+        <div><h1>Customers</h1><p className="page-description">Customer details, notes, and monthly payments.</p></div>
 
+        <div className="customers__controls">
+        <Link to="/add-new" className="btn btn-primary">+ Add customer</Link>
         <input
           type="text"
           aria-label="Search customers"
@@ -29,6 +32,7 @@ export default function Customers() {
           onChange={(e) => setSearch(e.target.value)}
           className="customers__search"
         />
+        </div>
       </div>
 
       <div className="customers__list">

@@ -1,12 +1,13 @@
 .customer { display: flex; flex-direction: column; gap: 32px; }
-.customer__header { display: grid; grid-template-columns: 1fr auto; gap: 16px 24px; border-bottom: 1px solid var(--border); padding-bottom: 28px; align-items: center; }
+.customer__header { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px 24px; border-bottom: 1px solid var(--border); padding-bottom: 28px; align-items: center; }
+.customer__header h1 { overflow-wrap: anywhere; }
 .customer__back { grid-column: 1 / -1; color: var(--text-muted); font-size: 13px; margin-bottom: 12px; }
 .customer__back:hover { color: var(--evergreen); }
-.customer__actions { display: flex; gap: 10px; }
+.customer__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .customer__fee { color: var(--text-muted); font-size: 14px; }
 .customer__sheet { display: flex; flex-direction: column; }
 .customer__notes { order: 3; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--text); }
-.notes__heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.notes__heading { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .notes__heading a { color: var(--evergreen); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
 .note { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); white-space: pre-wrap; overflow-wrap: anywhere; }
 .delete__note { background: none; border: 0; color: #7a2e26; cursor: pointer; font-size: 12px; flex-shrink: 0; }
@@ -16,4 +17,13 @@
 .status__badges > span { display: flex; gap: 6px; align-items: center; }
 .complete,.incomplete { display: inline-block; width: 7px; height: 7px; background: var(--evergreen); }
 .incomplete { background: #884439; }
-@media(max-width: 600px) { .customer__header { grid-template-columns: 1fr; } .status__badges { width: 100%; } }
+@media(max-width: 760px) { .status__badges { width: 100%; } }
+@media(max-width: 600px) {
+  .customer__header { grid-template-columns: minmax(0,1fr); }
+  .customer__fee { grid-row: 3; }
+  .customer { gap: 24px; }
+  .sheet__title { gap: 12px; }
+  .sheet__title h2 { font-size: 22px; }
+  .note { flex-direction: column; gap: 8px; }
+  .delete__note { min-height: 44px; }
+}

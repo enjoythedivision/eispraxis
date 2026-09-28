@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 export default function EditCustomer() {
   const { id } = useParams();
@@ -24,7 +24,7 @@ export default function EditCustomer() {
   }, [id]);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <div className="customer-form"><Link className="back-link" to={`/customer/${id}`}>← Back to customer</Link><h1>Loading...</h1></div>;
   }
 
   async function handleEdit(e) {
@@ -49,6 +49,7 @@ export default function EditCustomer() {
 
   return (
     <div className="customer-form">
+      <Link className="back-link" to={`/customer/${id}`}>← Back to customer</Link>
       <h1>Edit Customer Details</h1>
 
       <form onSubmit={handleEdit}>

@@ -4,6 +4,7 @@
 .metrics p, .metrics small { color: var(--text-muted); font-size: 13px; }
 .metrics strong { display: block; font-weight: 400; font-size: clamp(26px,3vw,40px); font-variant-numeric: tabular-nums; margin: 12px 0; letter-spacing: -1px; }
 .metrics strong span { color: var(--text-muted); font-size: 24px; }
+.metrics strong { overflow-wrap: anywhere; }
 .metrics progress { display: block; width: 100%; height: 5px; border: 0; background: var(--border); accent-color: var(--evergreen); }
 .metrics progress::-webkit-progress-bar { background: var(--border); }
 .metrics progress::-webkit-progress-value { background: var(--evergreen); }
@@ -15,4 +16,5 @@
 .row span:first-child { overflow-wrap: anywhere; }
 .row span:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
 @media(max-width: 1000px) { .registers { grid-template-columns: 1fr; } }
+@media(max-width: 760px) { .metrics > div { padding-left: 16px; padding-right: 16px; } .row { gap: 12px; } }
 @media(max-width: 520px) { .metrics { grid-template-columns: 1fr; gap: 24px; } .metrics > div { padding: 0 0 20px; border: 0; border-bottom: 1px solid var(--border); } }

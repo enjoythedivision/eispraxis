@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddNewCustomer() {
   const [name, setName] = useState("");
@@ -31,6 +31,7 @@ export default function AddNewCustomer() {
 
   return (
     <div className="customer-form">
+      <Link className="back-link" to="/">← Back to customers</Link>
       <h1>Add New Customer</h1>
 
       <form onSubmit={handleSubmit}>
