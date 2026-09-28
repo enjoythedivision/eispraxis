@@ -22,6 +22,10 @@ button,a,input,select,textarea { -webkit-tap-highlight-color: transparent; }
 input,select,textarea { padding: 11px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 3px; color: var(--text); min-width: 0; }
 input:focus,select:focus,textarea:focus { border-color: var(--teal); }
 textarea { resize: vertical; min-height: 160px; }
+.btn, input, select, textarea { border-radius: 6px; }
+.btn { min-height: 44px; }
+.btn-secondary { background: var(--surface); }
+input::placeholder, textarea::placeholder { color: var(--text-muted); }
 .customer-form { width: min(100%, 640px); display: flex; flex-direction: column; gap: 32px; }
 .customer-form h1 { padding-bottom: 28px; border-bottom: 1px solid var(--border); }
 .customer-form form { display: flex; flex-direction: column; gap: 24px; }
