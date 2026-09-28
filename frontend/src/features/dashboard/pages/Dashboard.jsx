@@ -1,135 +1,40 @@
 import { useEffect, useState } from "react";
-import "./Dashboard.module.scss";
-
+import { Link } from "react-router-dom";
+import styles from "./Dashboard.module.scss";
 export default function Dashboard() {
-  const [allCustomers, setAllCustomers] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
-
+  const [error, setError] = useState("");
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
   useEffect(() => {
-    async function fetchCustomers() {
-      try {
-        const response = await fetch("http://localhost:5021/api/customers");
-        const data = await response.json();
-        console.log("Fetched customers:", data);
-        setAllCustomers(data);
-      } catch (error) {
-        console.error("Failed to fetch customers:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCustomers();
+    fetch("http://localhost:5021/api/customers")
+      .then(response => { if (!response.ok) throw new Error(); return response.json(); })
+      .then(setCustomers)
+      .catch(() => setError("Could not load the dashboard. Please check the server and reload."))
+      .finally(() => setLoading(false));
   }, []);
-
-  // Calculate metrics
-  const expectedRevenue = allCustomers.reduce(
-    (sum, customer) => sum + customer.monthlyFee,
-    0,
-  );
-
-  const { paid, unpaid, received } = allCustomers.reduce(
-    (acc, customer) => {
-      const isPaid = customer.payments?.some(
-        (p) => p.year === currentYear && p.month === currentMonth && p.isPaid,
-      );
-
-      if (isPaid) {
-        acc.paid++;
-        acc.received += customer.monthlyFee;
-      } else {
-        acc.unpaid++;
-      }
-
-      return acc;
-    },
-    { paid: 0, unpaid: 0, received: 0 },
-  );
-
-  const collectionRate =
-    expectedRevenue > 0 ? Math.round((received / expectedRevenue) * 100) : 0;
-  const totalCustomers = allCustomers.length;
-
-  if (loading) return <div>Loading...</div>;
-
-  return (
-    <div>
-      <h1>Dashboard</h1>
-
-      <div style={{ marginBottom: "2rem" }}>
-        <h2>Money Collected</h2>
-        <div>
-          €{received.toFixed(2)} / €{expectedRevenue.toFixed(2)}
-        </div>
+  const isPaid = customer => customer.payments?.some(p => p.year === year && p.month === month && p.isPaid);
+  const paid = customers.filter(isPaid);
+  const unpaid = customers.filter(customer => !isPaid(customer));
+  const expected = customers.reduce((sum, c) => sum + c.monthlyFee, 0);
+  const received = paid.reduce((sum, c) => sum + c.monthlyFee, 0);
+  const rate = expected ? Math.round(received / expected * 100) : 0;
+  return <div className={styles.dashboard}>
+    <header className="page-heading"><div><p className="eyebrow">Monthly overview</p><h1>Dashboard</h1><p className="page-description">{now.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</p></div><Link to="/" className="btn btn-secondary">View customers ↗</Link></header>
+    {loading ? <p className="empty-state">Loading accounts…</p> : error ? <p className="empty-state" role="alert">{error}</p> : <>
+      <div className={styles.metrics}>
+        <div><p>Money collected</p><strong>€{received.toFixed(2)}</strong><small>of €{expected.toFixed(2)} expected</small></div>
+        <div><p>Collection rate</p><strong>{rate}%</strong><progress aria-label="Collection rate" max="100" value={rate} /></div>
+        <div><p>Accounts paid</p><strong>{paid.length}<span> / {customers.length}</span></strong><small>{unpaid.length} awaiting payment</small></div>
       </div>
-
-      <div style={{ marginBottom: "2rem" }}>
-        <h2>Collection Rate</h2>
-        <div>{collectionRate}%</div>
+      <div className={styles.registers}>
+        {[[unpaid, "Awaiting payment"], [paid, "Paid this month"]].map(([list, title]) => <section key={title}>
+          <div className={styles.sectionHeading}><h2>{title}</h2><span>{list.length}</span></div>
+          {list.length ? list.map(c => <Link className={styles.row} key={c.id} to={`/customer/${c.id}`}><span>{c.name}</span><span>€{Number(c.monthlyFee).toFixed(2)} ↗</span></Link>) : <p className="empty-state">{customers.length ? "No accounts in this group." : "Add a customer to start tracking payments."}</p>}
+        </section>)}
       </div>
-
-      <div style={{ marginBottom: "2rem" }}>
-        <h2>Paid / Unpaid</h2>
-        <div>
-          <div>Paid: {paid}</div>
-          <div>Unpaid: {unpaid}</div>
-        </div>
-      </div>
-
-      <div style={{ marginBottom: "2rem" }}>
-        <h2>
-          Unpaid Customers ({currentMonth}/{currentYear})
-        </h2>
-        {unpaid > 0 ? (
-          <ul>
-            {allCustomers
-              .filter(
-                (customer) =>
-                  !customer.payments?.some(
-                    (p) =>
-                      p.year === currentYear &&
-                      p.month === currentMonth &&
-                      p.isPaid,
-                  ),
-              )
-              .map((customer) => (
-                <li key={customer.id}>
-                  {customer.name} - €{customer.monthlyFee}
-                </li>
-              ))}
-          </ul>
-        ) : (
-          <p>All customers have paid.</p>
-        )}
-      </div>
-
-      <div>
-        <h2>Paid Customers</h2>
-
-        {paid > 0 ? (
-          <ul>
-            {allCustomers
-              .filter((customer) =>
-                customer.payments?.some(
-                  (p) =>
-                    p.year === currentYear &&
-                    p.month === currentMonth &&
-                    p.isPaid,
-                ),
-              )
-              .map((customer) => (
-                <li key={customer.id}>
-                  {customer.name} - €{customer.monthlyFee}
-                </li>
-              ))}
-          </ul>
-        ) : (
-          <p>No customers have paid yet.</p>
-        )}
-      </div>
-    </div>
-  );
+    </>}
+  </div>;
 }

@@ -1,4 +1,5 @@
 import PaymentCard from "./PaymentCard";
+import "./PaymentGrid.scss";
 
 export default function PaymentGrid({ customer, onToggle, year }) {
   if (!customer) return null;

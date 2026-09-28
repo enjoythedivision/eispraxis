@@ -151,11 +151,13 @@ export default function Customer() {
             Delete
           </button>
         </div>
+        <p className="customer__fee">€{Number(customer.monthlyFee).toFixed(2)} per month</p>
       </div>
 
       <div className="customer__sheet">
         <div className="customer__notes">
-          <Link to={`/customer/${customer.id}/addnote`}>Add note...</Link>
+          <div className="notes__heading"><h2>Account notes</h2><Link to={`/customer/${customer.id}/addnote`}>+ Add note</Link></div>
+          {notes.length === 0 && <p className="page-description">No notes on this account yet.</p>}
           {notes.map((n) => (
             <div key={n.id} className="note">
               {n.content}{" "}
@@ -173,6 +175,7 @@ export default function Customer() {
           <h2>Payment Tracker</h2>
 
           <select
+            aria-label="Payment year"
             value={selectedYear}
             onChange={(e) => setSelectedYear(Number(e.target.value))}
           >
@@ -189,9 +192,6 @@ export default function Customer() {
             </span>
             <span>
               <span className="incomplete"></span> Pending
-            </span>
-            <span>
-              <span className="na"></span> N/A
             </span>
           </span>
         </div>
