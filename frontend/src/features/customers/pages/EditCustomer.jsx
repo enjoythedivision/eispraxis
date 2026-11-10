@@ -8,6 +8,7 @@ export default function EditCustomer() {
   const [name, setName] = useState("");
   const [fee, setFee] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function loadCustomer() {
@@ -29,22 +30,32 @@ export default function EditCustomer() {
 
   async function handleEdit(e) {
     e.preventDefault();
+    setError("");
 
     if (!name.trim()) return;
     if (!fee) return;
 
-    await fetch(`http://localhost:5021/api/customers/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name.trim(),
-        monthlyFee: Number(fee),
-      }),
-    });
+    try {
+      const response = await fetch(`http://localhost:5021/api/customers/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          monthlyFee: Number(fee),
+        }),
+      });
 
-    navigate(`/customer/${id}`);
+      if (!response.ok) {
+        setError("Could not save the changes. Please try again.");
+        return;
+      }
+
+      navigate(`/customer/${id}`);
+    } catch {
+      setError("Could not connect to the server. Please try again.");
+    }
   }
 
   return (
@@ -74,6 +85,8 @@ export default function EditCustomer() {
             placeholder="Enter customer fee"
           />
         </div>
+
+        {error && <p role="alert">{error}</p>}
 
         <button className="btn btn-primary" type="submit">
           Save Changes
