@@ -1,9 +1,11 @@
 ﻿using Eispraxis.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Eispraxis.Api.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -12,7 +14,6 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Payment> Payments { get; set; }
-    public DbSet<User> Users { get; set; }
     public DbSet<Note> Notes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
