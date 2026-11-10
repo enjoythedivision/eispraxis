@@ -154,7 +154,7 @@ export default function Customer() {
             className="btn btn-danger"
             onClick={() => setShowDeleteModal(true)}
           >
-            Delete
+            Archive
           </button>
         </div>
         <p className="customer__fee">€{Number(customer.monthlyFee).toFixed(2)} per month</p>
@@ -217,8 +217,8 @@ export default function Customer() {
       {showDeleteModal && (
         <div className="modal">
           <div className="modal__content">
-            <h2>Delete customer?</h2>
-            <p>Are you sure you want to delete {customer.name}?</p>
+            <h2>Archive customer?</h2>
+            <p>Are you sure you want to archive {customer.name}?</p>
 
             <div className="modal__actions">
               <button
@@ -229,7 +229,7 @@ export default function Customer() {
               </button>
 
               <button className="btn btn-danger" onClick={handleDelete}>
-                Yes, delete
+                Yes, archive
               </button>
             </div>
           </div>
