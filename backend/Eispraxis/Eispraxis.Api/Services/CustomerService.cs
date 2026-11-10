@@ -13,10 +13,10 @@ public class CustomerService
         _context = context;
     }
 
-    public async Task<List<Customer>> GetCustomersAsync()
+    public async Task<List<Customer>> GetCustomersAsync(bool archived = false)
     {
         return await _context.Customers
-            .Where(c => !c.IsArchived)
+            .Where(c => c.IsArchived == archived)
             .Include(c => c.Payments)
             .ToListAsync();
     }
@@ -74,6 +74,22 @@ public class CustomerService
 
         customer.IsArchived = true;
 
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> RestoreCustomerAsync(int id)
+    {
+        var customer = await _context.Customers
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (customer == null)
+        {
+            return false;
+        }
+
+        customer.IsArchived = false;
         await _context.SaveChangesAsync();
 
         return true;

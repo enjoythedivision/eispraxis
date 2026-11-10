@@ -18,9 +18,9 @@ public class CustomersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCustomers()
+    public async Task<IActionResult> GetCustomers([FromQuery] bool archived = false)
     {
-        var customers = await _customerService.GetCustomersAsync();
+        var customers = await _customerService.GetCustomersAsync(archived);
 
         return Ok(customers);
     }
@@ -76,6 +76,19 @@ public class CustomersController : ControllerBase
         var deleted = await _customerService.DeleteCustomerAsync(id);
 
         if (!deleted)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+
+    [HttpPatch("{id}/restore")]
+    public async Task<IActionResult> RestoreCustomer(int id)
+    {
+        var restored = await _customerService.RestoreCustomerAsync(id);
+
+        if (!restored)
         {
             return NotFound();
         }

@@ -136,7 +136,7 @@ export default function Customer() {
   return (
     <div className="customer">
       <div className="customer__header">
-        <Link className="customer__back" to="/">
+        <Link className="customer__back" to={customer.isArchived ? "/?archived=true" : "/"}>
           ← Back to customer list
         </Link>
 
@@ -150,12 +150,12 @@ export default function Customer() {
             Edit
           </Link>
 
-          <button
+          {!customer.isArchived && <button
             className="btn btn-danger"
             onClick={() => setShowDeleteModal(true)}
           >
             Archive
-          </button>
+          </button>}
         </div>
         <p className="customer__fee">€{Number(customer.monthlyFee).toFixed(2)} per month</p>
       </div>

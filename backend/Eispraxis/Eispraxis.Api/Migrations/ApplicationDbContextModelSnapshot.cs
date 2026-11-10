@@ -30,6 +30,9 @@ namespace Eispraxis.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
                     b.Property<int>("MonthlyFee")
                         .HasColumnType("int");
 

@@ -19,6 +19,7 @@ public class DashboardService
         int month)
     {
         return await _context.Customers
+            .Where(customer => !customer.IsArchived)
             .Where(customer =>
                 !customer.Payments.Any(payment =>
                     payment.Year == year &&
@@ -31,7 +32,10 @@ public class DashboardService
         int year,
         int month)
     {
-        var customers = await _context.Customers.Include(c => c.Payments).ToListAsync();
+        var customers = await _context.Customers
+            .Where(c => !c.IsArchived)
+            .Include(c => c.Payments)
+            .ToListAsync();
         var totalCustomers = customers.Count;
         var expectedRevenue = 0m;
 
