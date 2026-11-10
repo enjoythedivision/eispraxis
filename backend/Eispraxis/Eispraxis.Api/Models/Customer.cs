@@ -11,9 +11,8 @@
         public int Id { get; set; }
         public string Name { get; set; } = "";
         public int MonthlyFee { get; set; }
-
+        public bool IsArchived { get; set; } = false;
         public List<Payment> Payments { get; set; } = new();
-
         public List<Note> Notes { get; set; } = new();
 
     }
