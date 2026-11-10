@@ -35,15 +35,14 @@ export default function Dashboard() {
   const expected = customers.reduce((sum, c) => sum + c.monthlyFee, 0);
   const received = paid.reduce((sum, c) => sum + c.monthlyFee, 0);
   const rate = expected ? Math.round((received / expected) * 100) : 0;
-  
+
   return (
-    <div className={styles.dashboard}>
+    <div>
       <Link className="back-link" to="/">
         ← Back to customers
       </Link>
       <header className="page-heading">
         <div>
-          <p className="eyebrow">Monthly overview</p>
           <h1>Dashboard</h1>
           <p className="page-description">
             {now.toLocaleDateString("en-GB", {
@@ -52,9 +51,6 @@ export default function Dashboard() {
             })}
           </p>
         </div>
-        <Link to="/" className="btn btn-secondary">
-          View customers ↗
-        </Link>
       </header>
       {loading ? (
         <p className="empty-state">Loading accounts…</p>

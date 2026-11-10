@@ -25,3 +25,7 @@ dist-ssr
 
 .vs/
 **/.vs/
+
+# .NET build output
+**/bin/
+**/obj/

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./AddNewCustomer.scss";
 
 export default function AddNewCustomer() {
   const [name, setName] = useState("");
