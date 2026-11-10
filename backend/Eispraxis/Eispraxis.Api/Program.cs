@@ -3,6 +3,7 @@ using Eispraxis.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,8 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins("http://localhost:5173")
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -23,9 +25,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services
-    .AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+    .AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<CustomerService>();
@@ -57,9 +58,41 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowReactApp");
 
+// Block public registration, staff accounts will be created separately
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments(
+        "/api/auth/register",
+        StringComparison.OrdinalIgnoreCase))
+    {
+        context.Response.StatusCode = StatusCodes.Status404NotFound;
+        return;
+    }
+
+    await next();
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGroup("/api/auth")
+    .MapIdentityApi<IdentityUser>();
+
 app.MapControllers();
+
+app.MapPost("/api/auth/logout", async (
+    SignInManager<IdentityUser> signInManager,
+    [FromBody] object body) =>
+{
+    if (body == null)
+    {
+        return Results.BadRequest();
+    }
+
+    await signInManager.SignOutAsync();
+
+    return Results.NoContent();
+})
+.RequireAuthorization();
 
 app.Run();
