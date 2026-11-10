@@ -16,6 +16,7 @@ public class CustomerService
     public async Task<List<Customer>> GetCustomersAsync()
     {
         return await _context.Customers
+            .Where(c => !c.IsArchived)
             .Include(c => c.Payments)
             .ToListAsync();
     }
