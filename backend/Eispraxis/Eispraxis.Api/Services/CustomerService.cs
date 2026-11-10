@@ -71,7 +71,7 @@ public class CustomerService
             return false;
         }
 
-        _context.Customers.Remove(customer);
+        customer.IsArchived = true;
 
         await _context.SaveChangesAsync();
 
