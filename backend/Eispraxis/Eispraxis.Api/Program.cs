@@ -31,7 +31,6 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<DashboardService>();
 
-
 builder.Services
     .AddControllers()
     .AddJsonOptions(options =>
@@ -59,8 +58,6 @@ app.UseHttpsRedirection();
 app.UseCors("AllowReactApp");
 
 app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseAuthorization();
 
 app.MapControllers();

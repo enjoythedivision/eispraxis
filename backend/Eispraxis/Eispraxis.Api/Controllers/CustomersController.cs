@@ -71,11 +71,11 @@ public class CustomersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCustomer(int id)
+    public async Task<IActionResult> ArchiveCustomer(int id)
     {
-        var deleted = await _customerService.DeleteCustomerAsync(id);
+        var archived = await _customerService.ArchiveCustomerAsync(id);
 
-        if (!deleted)
+        if (!archived)
         {
             return NotFound();
         }

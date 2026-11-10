@@ -8,7 +8,7 @@ export default function Customer() {
   const navigate = useNavigate();
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showArchiveModal, setShowArchiveModal] = useState(false);
   const [notes, setNotes] = useState([]);
   const [savingPayment, setSavingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState("");
@@ -53,7 +53,7 @@ export default function Customer() {
     fetchNotes();
   }, [id]);
 
-  async function handleDelete() {
+  async function handleArchive() {
     try {
       const response = await fetch(
         `http://localhost:5021/api/customers/${id}`,
@@ -63,13 +63,13 @@ export default function Customer() {
       );
 
       if (!response.ok) {
-        console.error("Failed to delete customer");
+        console.error("Failed to archive customer");
         return;
       }
 
       navigate("/");
     } catch (error) {
-      console.error("Failed to delete customer:", error);
+      console.error("Failed to archive customer:", error);
     }
   }
 
@@ -152,7 +152,7 @@ export default function Customer() {
 
           {!customer.isArchived && <button
             className="btn btn-danger"
-            onClick={() => setShowDeleteModal(true)}
+            onClick={() => setShowArchiveModal(true)}
           >
             Archive
           </button>}
@@ -214,7 +214,7 @@ export default function Customer() {
         </div>
       </div>
 
-      {showDeleteModal && (
+      {showArchiveModal && (
         <div className="modal">
           <div className="modal__content">
             <h2>Archive customer?</h2>
@@ -223,12 +223,12 @@ export default function Customer() {
             <div className="modal__actions">
               <button
                 className="btn btn-secondary"
-                onClick={() => setShowDeleteModal(false)}
+                onClick={() => setShowArchiveModal(false)}
               >
                 Cancel
               </button>
 
-              <button className="btn btn-danger" onClick={handleDelete}>
+              <button className="btn btn-danger" onClick={handleArchive}>
                 Yes, archive
               </button>
             </div>

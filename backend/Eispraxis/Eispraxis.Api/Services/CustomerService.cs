@@ -62,7 +62,7 @@ public class CustomerService
         return customer;
     }
 
-    public async Task<bool> DeleteCustomerAsync(int id)
+    public async Task<bool> ArchiveCustomerAsync(int id)
     {
         var customer = await _context.Customers
             .FirstOrDefaultAsync(c => c.Id == id);
