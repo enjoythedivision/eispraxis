@@ -25,15 +25,21 @@ export default function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  const isPaid = (customer) =>
-    customer.payments?.some(
+  const getPaidPayment = (customer) =>
+    customer.payments?.find(
       (p) => p.year === year && p.month === month && p.isPaid,
     );
 
-  const paid = customers.filter(isPaid);
-  const unpaid = customers.filter((customer) => !isPaid(customer));
-  const expected = customers.reduce((sum, c) => sum + c.monthlyFee, 0);
-  const received = paid.reduce((sum, c) => sum + c.monthlyFee, 0);
+  function getMonthAmount(customer) {
+    const payment = getPaidPayment(customer);
+    return payment ? payment.paidFee : customer.monthlyFee;
+  }
+
+  const paid = customers.filter((customer) => getPaidPayment(customer));
+  const unpaid = customers.filter((customer) => !getPaidPayment(customer));
+  const hasUnknownAmounts = paid.some((customer) => getMonthAmount(customer) == null);
+  const expected = customers.reduce((sum, c) => sum + (getMonthAmount(c) ?? 0), 0);
+  const received = paid.reduce((sum, c) => sum + (getMonthAmount(c) ?? 0), 0);
   const rate = expected ? Math.round((received / expected) * 100) : 0;
 
   return (
@@ -60,6 +66,9 @@ export default function Dashboard() {
         </p>
       ) : (
         <>
+          {hasUnknownAmounts && (
+            <p role="status">Some older paid amounts were not recorded and are excluded from the money totals.</p>
+          )}
           <div className={styles.metrics}>
             <div>
               <p>Money collected</p>
@@ -98,7 +107,7 @@ export default function Dashboard() {
                       to={`/customer/${c.id}`}
                     >
                       <span>{c.name}</span>
-                      <span>€{Number(c.monthlyFee).toFixed(2)} ↗</span>
+                      <span>{getMonthAmount(c) == null ? "Amount not recorded" : `€${Number(getMonthAmount(c)).toFixed(2)}`} ↗</span>
                     </Link>
                   ))
                 ) : (

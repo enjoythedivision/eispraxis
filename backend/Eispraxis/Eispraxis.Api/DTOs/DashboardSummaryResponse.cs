@@ -7,4 +7,5 @@ public class DashboardSummaryResponse
     public decimal CollectionRate { get; set; }
     public int PaidCustomers { get; set; }
     public int UnpaidCustomers { get; set; }
+    public int PaymentsWithoutRecordedFee { get; set; }
 }

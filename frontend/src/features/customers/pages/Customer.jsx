@@ -10,10 +10,12 @@ export default function Customer() {
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [notes, setNotes] = useState([]);
+  const [savingPayment, setSavingPayment] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear); //get current year + set state for current year
   const years = [];
-  for (let year = 2025; year <= currentYear; year++) {
+  for (let year = 2024; year <= currentYear; year++) {
     years.push(year);
   }
 
@@ -79,36 +81,40 @@ export default function Customer() {
     return <><Link className="back-link" to="/">← Back to customers</Link><h1>Customer not found</h1></>;
   }
 
-  async function handleTogglePayment(month) {
+  async function handleSetPaymentStatus(month, isPaid) {
     const year = selectedYear;
 
-    const response = await fetch(
-      `http://localhost:5021/api/customers/${id}/payments/${year}/${month}`,
-      {
-        method: "PATCH",
-      },
-    );
+    setSavingPayment(true);
+    setPaymentError("");
 
-    if (!response.ok) return;
-
-    const updatedPayment = await response.json();
-
-    setCustomer((current) => {
-      const existingPayment = current.payments.find(
-        (p) => p.year === year && p.month === month,
+    try {
+      const response = await fetch(
+        `http://localhost:5021/api/customers/${id}/payments/${year}/${month}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ isPaid }),
+        },
       );
 
-      const payments = existingPayment
-        ? current.payments.map((p) =>
-            p.year === year && p.month === month ? updatedPayment : p,
-          )
-        : [...current.payments, updatedPayment];
+      if (!response.ok) throw new Error("Payment was not saved");
 
-      return {
-        ...current,
-        payments,
-      };
-    });
+      const updatedPayment = await response.json();
+
+      setCustomer((current) => {
+        if (current?.id !== updatedPayment.customerId) return current;
+
+        const otherPayments = current.payments.filter(
+          (p) => p.year !== year || p.month !== month,
+        );
+
+        return { ...current, payments: [...otherPayments, updatedPayment] };
+      });
+    } catch {
+      setPaymentError("Could not save this month. Reload the page and try again.");
+    } finally {
+      setSavingPayment(false);
+    }
   }
 
   const handleDeleteNote = async (noteId) => {
@@ -176,6 +182,7 @@ export default function Customer() {
 
           <select
             aria-label="Payment year"
+            disabled={savingPayment}
             value={selectedYear}
             onChange={(e) => setSelectedYear(Number(e.target.value))}
           >
@@ -197,10 +204,12 @@ export default function Customer() {
         </div>
 
         <div className="sheet__grid">
+          {paymentError && <p role="alert">{paymentError}</p>}
           <PaymentGrid
             customer={customer}
             year={selectedYear}
-            onToggle={handleTogglePayment}
+            onSetPaid={handleSetPaymentStatus}
+            saving={savingPayment}
           />
         </div>
       </div>

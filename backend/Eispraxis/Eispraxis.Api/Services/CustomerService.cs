@@ -78,19 +78,22 @@ public class CustomerService
         return true;
     }
 
-    public async Task<Payment?> TogglePaymentAsync(
-    int customerId,
-    int year,
-    int month)
+    public async Task<Payment?> SetPaymentStatusAsync(
+        int customerId,
+        int year,
+        int month,
+        bool isPaid)
     {
-        var customerExists = await _context.Customers
-            .AnyAsync(c => c.Id == customerId);
+        // 1. Find the customer so we can read their current fee.
+        var customer = await _context.Customers
+            .FirstOrDefaultAsync(c => c.Id == customerId);
 
-        if (!customerExists)
+        if (customer == null)
         {
             return null;
         }
 
+        // 2. Find this month's record, or create it if it does not exist.
         var payment = await _context.Payments
             .FirstOrDefaultAsync(p =>
                 p.CustomerId == customerId &&
@@ -103,21 +106,31 @@ public class CustomerService
             {
                 CustomerId = customerId,
                 Year = year,
-                Month = month,
-                IsPaid = true,
-                PaidAt = DateTime.UtcNow
+                Month = month
             };
 
             _context.Payments.Add(payment);
         }
-        else
+
+        // 3. Only change the date and amount when the status actually changes.
+        // Repeating "paid" must keep the original fee and date.
+        if (payment.IsPaid != isPaid)
         {
-            payment.IsPaid = !payment.IsPaid;
-            payment.PaidAt = payment.IsPaid
-                ? DateTime.UtcNow
-                : null;
+            payment.IsPaid = isPaid;
+
+            if (isPaid)
+            {
+                payment.PaidAt = DateTime.UtcNow;
+                payment.PaidFee = customer.MonthlyFee;
+            }
+            else
+            {
+                payment.PaidAt = null;
+                payment.PaidFee = null;
+            }
         }
 
+        // 4. Save the result in the database.
         await _context.SaveChangesAsync();
 
         return payment;

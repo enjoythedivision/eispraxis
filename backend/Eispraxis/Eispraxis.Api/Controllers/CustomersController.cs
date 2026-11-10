@@ -1,6 +1,8 @@
 ﻿using Eispraxis.Api.DTOs;
 using Eispraxis.Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eispraxis.Api.Controllers;
 
@@ -82,19 +84,36 @@ public class CustomersController : ControllerBase
     }
 
     [HttpPatch("{id}/payments/{year}/{month}")]
-    public async Task<IActionResult> TogglePayment(
-    int id,
-    int year,
-    int month)
+    public async Task<IActionResult> SetPaymentStatus(
+        int id,
+        int year,
+        int month,
+        UpdatePaymentRequest request)
     {
-        var payment = await _customerService.TogglePaymentAsync(id, year, month);
-
-        if (payment == null)
+        if (request.IsPaid == null || year < 2024 || year > 9999 || month < 1 || month > 12)
         {
-            return NotFound();
+            return BadRequest("Send isPaid (true or false), a year from 2024, and a month from 1 to 12.");
         }
 
-        return Ok(payment);
+        try
+        {
+            var payment = await _customerService.SetPaymentStatusAsync(
+                id, year, month, request.IsPaid.Value);
+
+            if (payment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(payment);
+        }
+        catch (DbUpdateException exception) when (
+            exception.InnerException is SqlException sql &&
+            (sql.Number == 2601 || sql.Number == 2627))
+        {
+            // Two people may try to create the same month at the same time.
+            return Conflict("This month was saved by another user. Reload and try again.");
+        }
     }
 
     [HttpGet("{customerId}/notes")]

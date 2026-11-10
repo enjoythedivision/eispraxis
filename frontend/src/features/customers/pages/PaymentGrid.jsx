@@ -1,7 +1,7 @@
 import PaymentCard from "./PaymentCard";
 import "./PaymentGrid.scss";
 
-export default function PaymentGrid({ customer, onToggle, year }) {
+export default function PaymentGrid({ customer, onSetPaid, year, saving }) {
   if (!customer) return null;
 
   const months = [
@@ -30,10 +30,11 @@ export default function PaymentGrid({ customer, onToggle, year }) {
           <PaymentCard
             key={month.number}
             month={month.name}
-            amount={customer.monthlyFee}
+            amount={payment?.isPaid ? payment.paidFee : customer.monthlyFee}
             paid={payment?.isPaid ?? false}
             paymentDate={payment?.paidAt}
-            onToggle={() => onToggle(month.number)}
+            disabled={saving}
+            onToggle={() => onSetPaid(month.number, !payment?.isPaid)}
           />
         );
       })}

@@ -31,24 +31,31 @@ public class DashboardService
         int year,
         int month)
     {
-        var customers = await _context.Customers.ToListAsync();
+        var customers = await _context.Customers.Include(c => c.Payments).ToListAsync();
         var totalCustomers = customers.Count;
-        var expectedRevenue = customers.Sum(c => c.MonthlyFee);
+        var expectedRevenue = 0m;
 
         var paidCustomersCount = 0;
         var receivedRevenue = 0m;
+        var paymentsWithoutRecordedFee = 0;
 
         foreach (var customer in customers)
         {
-            var hasPaidThisMonth = customer.Payments.Any(p =>
+            var payment = customer.Payments.FirstOrDefault(p =>
                 p.Year == year &&
                 p.Month == month &&
                 p.IsPaid);
 
-            if (hasPaidThisMonth)
+            if (payment != null)
             {
                 paidCustomersCount++;
-                receivedRevenue += customer.MonthlyFee;
+                receivedRevenue += payment.PaidFee ?? 0;
+                expectedRevenue += payment.PaidFee ?? 0;
+                if (payment.PaidFee == null) paymentsWithoutRecordedFee++;
+            }
+            else
+            {
+                expectedRevenue += customer.MonthlyFee;
             }
         }
 
@@ -63,7 +70,8 @@ public class DashboardService
             ExpectedRevenue = expectedRevenue,
             CollectionRate = collectionRate,
             PaidCustomers = paidCustomersCount,
-            UnpaidCustomers = unpaidCustomersCount
+            UnpaidCustomers = unpaidCustomersCount,
+            PaymentsWithoutRecordedFee = paymentsWithoutRecordedFee
         };
     }
 }

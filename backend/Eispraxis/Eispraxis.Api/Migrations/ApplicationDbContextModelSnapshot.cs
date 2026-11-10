@@ -84,12 +84,16 @@ namespace Eispraxis.Api.Migrations
                     b.Property<DateTime?>("PaidAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("PaidFee")
+                        .HasColumnType("int");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId", "Year", "Month")
+                        .IsUnique();
 
                     b.ToTable("Payments");
                 });

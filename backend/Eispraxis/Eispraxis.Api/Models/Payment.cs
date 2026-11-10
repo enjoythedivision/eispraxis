@@ -15,6 +15,9 @@ public class Payment
 
     public DateTime? PaidAt { get; set; }
 
+    // The fee when this month was paid. Null means no amount was recorded.
+    public int? PaidFee { get; set; }
+
     [JsonIgnore]
     public Customer Customer { get; set; } = null!;
 }
